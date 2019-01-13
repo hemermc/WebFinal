@@ -49,7 +49,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
             ps.setInt(5, vuelo.getId_avion());
             ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla VUELOS", ex);
         }
     }
 
@@ -74,7 +74,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
 
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla VUELOS", ex);
         }
     }
 
@@ -92,7 +92,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
             ps.setInt(1, Integer.parseInt(id));
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al eliminar un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al eliminar un registro de la tabla VUELOS", ex);
         }
     }
 
@@ -115,7 +115,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla VUELOS", ex);
         }
         return vuelo;
     }
@@ -136,7 +136,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                 listaVuelos.add(formatearResultado(rs));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener todos los registros de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener todos los registros de la tabla VUELOS", ex);
         }
         return listaVuelos;
     }
@@ -179,7 +179,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                     rs.getInt(Constantes.ID_AVION),
                     rs.getFloat("precio"));
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla VUELOS", ex);
         }
         return vuelo;
     }

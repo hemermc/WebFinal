@@ -47,7 +47,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
         ;
             ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla COMPRAS", ex);
         }
     }
 
@@ -71,7 +71,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
 
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla COMPRAS", ex);
         }
     }
 
@@ -89,7 +89,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
             ps.setInt(1, Integer.parseInt(id));
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al eliminar un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al eliminar un registro de la tabla COMPRAS", ex);
         }
     }
 
@@ -112,7 +112,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla COMPRAS", ex);
         }
         return compra;
     }
@@ -133,7 +133,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
                 listaCompras.add(formatearResultado(rs));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al obtener todos los registros de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al obtener todos los registros de la tabla COMPRAS", ex);
         }
         return listaCompras;
     }
@@ -149,7 +149,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
                     rs.getInt(Constantes.ID_VUELO),
                     rs.getInt(Constantes.ASIENTO));
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla COMPRAS", ex);
         }
         return compra;
     }
