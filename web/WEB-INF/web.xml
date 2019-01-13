@@ -3,6 +3,14 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>ControladorLogout</servlet-name>
+        <servlet-class>com.Controlador.ControladorLogout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControladorLogout</servlet-name>
+        <url-pattern>/ControladorLogout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

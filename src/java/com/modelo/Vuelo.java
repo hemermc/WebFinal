@@ -16,19 +16,14 @@ public class Vuelo {
     private Date fecha;
     private int numeroPasajeros;
     private int precioVuelo;
-    private Lugares origen;
-    private Lugares destino;
-
     public Vuelo() {
     }
 
-    public Vuelo(int numeroAvion, Date fecha, int numeroPasajeros, int precioVuelo, Lugares origen, Lugares destino) {
+    public Vuelo(int numeroAvion, Date fecha, int numeroPasajeros, int precioVuelo) {
         this.numeroAvion = numeroAvion;
         this.fecha = fecha;
         this.numeroPasajeros = numeroPasajeros;
         this.precioVuelo = precioVuelo;
-        this.origen = origen;
-        this.destino = destino;
     }
 
     public int getNumeroAvion() {
@@ -61,21 +56,5 @@ public class Vuelo {
 
     public void setPrecioVuelo(int precioVuelo) {
         this.precioVuelo = precioVuelo;
-    }
-
-    public Lugares getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(Lugares origen) {
-        this.origen = origen;
-    }
-
-    public Lugares getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Lugares destino) {
-        this.destino = destino;
     }
 }

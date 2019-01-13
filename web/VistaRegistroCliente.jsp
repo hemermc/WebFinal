@@ -37,13 +37,11 @@
             </p>
             <p>
                 <a href="#">Inicio</a>
-                <a href="#">Subastas</a>
-                <a href="#">Productos subastados</a>
                 <a href="#">Contactanos</a>
                 <a href="#">acerca de nosotros</a>
 
             </p>
-            <p>Copyright &copy; 2019 &minus; Subastas&amp;Antiguedades &middot; Diseñadores: Alexander y Juan Antonio</p>
+            <p>Copyright &copy; 2019 &minus; Mas que&amp;vuelos &middot;</p>
         </div>
     </body>
 </html>
