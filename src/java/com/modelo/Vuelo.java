@@ -6,55 +6,28 @@
 package com.modelo;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import lombok.Data;
 
 /**
  *
  * @author javi_
  */
+@Data
 public class Vuelo {
-    private int numeroAvion;
-    private Date fecha;
-    private int numeroPasajeros;
-    private int precioVuelo;
-    public Vuelo() {
-    }
+    private int id_vuelo;
+    private String origen;
+    private String destino;
+    private LocalDate fecha;
+    private int id_avion;
+    private float precio;
 
-    public Vuelo(int numeroAvion, Date fecha, int numeroPasajeros, int precioVuelo) {
-        this.numeroAvion = numeroAvion;
+    public Vuelo(int id_vuelo, String origen, String destino, LocalDate fecha, int id_avion, float precio) {
+        this.id_vuelo = id_vuelo;
         this.fecha = fecha;
-        this.numeroPasajeros = numeroPasajeros;
-        this.precioVuelo = precioVuelo;
-    }
-
-    public int getNumeroAvion() {
-        return numeroAvion;
-    }
-
-    public void setNumeroAvion(int numeroAvion) {
-        this.numeroAvion = numeroAvion;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public int getNumeroPasajeros() {
-        return numeroPasajeros;
-    }
-
-    public void setNumeroPasajeros(int numeroPasajeros) {
-        this.numeroPasajeros = numeroPasajeros;
-    }
-
-    public int getPrecioVuelo() {
-        return precioVuelo;
-    }
-
-    public void setPrecioVuelo(int precioVuelo) {
-        this.precioVuelo = precioVuelo;
+        this.origen = origen;
+        this.destino = destino;
+        this.id_avion = id_avion;
+        this.precio = precio;
     }
 }
