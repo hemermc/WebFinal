@@ -39,7 +39,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CRUDAeropuerto.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla AEROPUERTOS", ex);
-        }
+        }//aeropuerto
     }
 
     /**
