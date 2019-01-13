@@ -16,11 +16,7 @@ import lombok.Setter;
 @Setter
 public class Administrador extends Usuario {
 
-    private final int nivel_permisos;
-
-    public Administrador(String nombre_usuario, String clave, int nivel_permisos) {
+    public Administrador(String nombre_usuario, String clave) {
         super(nombre_usuario, clave);
-        this.nivel_permisos = nivel_permisos;
     }
-
 }

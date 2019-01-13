@@ -40,11 +40,10 @@ public class CRUDAdministrador implements ICRUDGeneral<Administrador>, ICRUDUsua
      */
     @Override
     public void insertar(Administrador administrador) {
-        String consulta = "INSERT INTO Administradores VALUES (?, ?, ?)";
+        String consulta = "INSERT INTO Administradores VALUES (?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {//Implementa el autocierre del PreparedStatement
             ps.setString(1, administrador.getNombre_usuario());
             ps.setString(2, administrador.getClave());
-            ps.setInt(3, administrador.getNivel_permisos());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CRUDCliente.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla ADMINISTRADORES", ex);
@@ -77,11 +76,10 @@ public class CRUDAdministrador implements ICRUDGeneral<Administrador>, ICRUDUsua
     @Override
     public void actualizar(Administrador administrador) {
         String consulta = "UPDATE Administradores "
-                + "SET clave = ?, nivel_permisos = ? WHERE nombre_usuario = ?";
+                + "SET clave = ? WHERE nombre_usuario = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, administrador.getClave());
-            ps.setInt(2, administrador.getNivel_permisos());
-            ps.setString(3, administrador.getNombre_usuario());
+            ps.setString(2, administrador.getNombre_usuario());
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
             Logger.getLogger(CRUDCliente.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla ADMINISTRADORES", ex);
@@ -145,8 +143,7 @@ public class CRUDAdministrador implements ICRUDGeneral<Administrador>, ICRUDUsua
         try {
             administrador = new Administrador(
                     rs.getString("nombre_usuario"),
-                    rs.getString("clave"),
-                    rs.getInt("nivel_permisos"));
+                    rs.getString("clave"));
         } catch (SQLException ex) {
             Logger.getLogger(CRUDCliente.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla ADMINISTRADORES", ex);
         }

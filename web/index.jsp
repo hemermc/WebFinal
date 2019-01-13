@@ -20,6 +20,11 @@
                 <div  class="grid-block" style="background-image: url('https://memoriasdeunviajesinretorno.files.wordpress.com/2014/12/airplane-taking-off-road-sky.jpg?w=1200')">
                 <form class="formulario-inicio" action="" method="post">			
                     <div>
+                        <label for="origen">Origen: </label>
+                        <!-- hay que cambiarlo a combobox -->
+                        <select name="origen" > type="text" id="origen"/>
+                    </div>
+                    <div>
                         <label for="destino">Destino: </label>
                         <!-- hay que cambiarlo a combobox -->
                         <input type="text" id="destino"/>
