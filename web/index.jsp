@@ -42,7 +42,7 @@
                         <input type="date" id="fecha-vuelta"/> 
                     </div>
                     <div>
-                        <label for="num_billetes">Nº adultos: </label>
+                        <label for="num_billetes">Nº viajeros: </label>
                         <input type="number" id="num_billetes" min ="1"/>
                     </div>
                     <div class="boton-inicio">

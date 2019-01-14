@@ -137,6 +137,22 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
         }
         return listaCompras;
     }
+    public ArrayList<Compra> obtenerComprasUsuario (String dni) {
+        ArrayList<Compra> comprasUsuario = new ArrayList<>();
+        String consulta = "SELECT * FROM Compras WHERE " +  Constantes.DNI + " = ?";
+        
+          try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+            ps.setString(1, dni);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                comprasUsuario.add(formatearResultado(rs));
+            }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla COMPRAS", ex);
+        }
+        return comprasUsuario;
+    }
 
     @Override
     public Compra formatearResultado(ResultSet rs) throws SQLException {

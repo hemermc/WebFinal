@@ -39,7 +39,7 @@
                         <li><a href="index.jsp">Inicio</a></li>
                         <li><a href="VistaPaquetes.jsp">Paquetes de viaje</a></li>
                         <li><a href="VistaOfertas.jsp">Ofertas</a></li>
-                        
+                         <li><a href="VistaUsuarioDetalles.jsp">Mi perfil</a></li>
                         <li><a href="VistaContacto.jsp">Contacto</a></li>
                     </ul>
                 </nav>
