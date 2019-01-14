@@ -29,5 +29,6 @@ public class Constantes {
     public static final String ORIGEN = "origen";
     public static final String DESTINO = "destino";
     public static final String FECHA = "fecha";
-    
+    public static final String ID_AEROPUERTO = "id_aeropuerto";
+  
 }
