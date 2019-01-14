@@ -21,6 +21,15 @@ public class Vuelo {
     private LocalDate fecha;
     private int id_avion;
     private float precio;
+    
+    public Vuelo(String origen, String destino, LocalDate fecha) {
+        this.id_vuelo = id_vuelo;
+        this.fecha = fecha;
+        this.origen = origen;
+        this.destino = destino;
+        this.id_avion = id_avion;
+        this.precio = precio;
+    }
 
     public Vuelo(int id_vuelo, String origen, String destino, LocalDate fecha, int id_avion, float precio) {
         this.id_vuelo = id_vuelo;

@@ -22,20 +22,28 @@
                     <div>
                         <label for="origen">Origen: </label>
                         <!-- hay que cambiarlo a combobox -->
-                        <select name="origen" > type="text" id="origen"/>
+                        <select name="origen" > type="text" id="origen" >
+                            <option value="inicio-origen">Elegir origen</option>
+                        </select>
                     </div>
                     <div>
                         <label for="destino">Destino: </label>
                         <!-- hay que cambiarlo a combobox -->
-                        <input type="text" id="destino"/>
+                        <select name="destino" > type="text" id="destino" >
+                            <option value="inicio-destino">Elegir destino</option>
+                        </select>
                     </div>
                     <div>
-                        <label for="fecha">Fecha: </label>
-                        <input type="date" id="fecha"/> 
+                        <label for="fecha-ida">Fecha ida: </label>
+                        <input type="date" id="fecha-ida"/> 
                     </div>
                     <div>
-                        <label for="noches">Nº noches: </label>
-                        <input type="number" id="noches" min ="1"/>
+                        <label for="fecha-vuelta">Fecha vuelta: </label>
+                        <input type="date" id="fecha-vuelta"/> 
+                    </div>
+                    <div>
+                        <label for="num_billetes">Nº adultos: </label>
+                        <input type="number" id="num_billetes" min ="1"/>
                     </div>
                     <div class="boton-inicio">
                         <button type="submit">Buscar vuelos disponibles</button>
