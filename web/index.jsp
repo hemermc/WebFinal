@@ -4,6 +4,11 @@
     Author     : lynch
 --%>
 
+<%@page import="com.crud.CRUDAeropuerto"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="com.modelo.GestionBBDDLocalhost"%>
+<%@page import="com.modelo.Aeropuerto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,34 +17,58 @@
         <title>Más que vuelos</title>
         <link rel="stylesheet" href="css/estilos.css">
 	<link rel="stylesheet" href="css/style.css">
+        
     </head>
     <body>
       
             <jsp:include page="ComponenteHeader.jsp"/>
             <div class="contenedor">
                 <div  class="grid-block" style="background-image: url('https://memoriasdeunviajesinretorno.files.wordpress.com/2014/12/airplane-taking-off-road-sky.jpg?w=1200')">
-                <form class="formulario-inicio" action="" method="post">			
+                <form class="formulario-inicio" action="ControladorBusquedaVuelos" method="post">
+                    
                     <div>
+                        
                         <label for="origen">Origen: </label>
                         <!-- hay que cambiarlo a combobox -->
                         <select name="origen" > type="text" id="origen" >
-                            <option value="inicio-origen">Elegir origen</option>
+                            <%
+                                GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
+                                Connection conexion = gestionDB.establecerConexion();
+                                CRUDAeropuerto aero = new CRUDAeropuerto(conexion);
+                                ArrayList<Aeropuerto>listaAeropuertos = (ArrayList)aero.obtenerTodos();
+                                out.println("<option value=\"inicio-origen\">Elegir origen</option>");
+                                 
+                                for(Aeropuerto aerop :listaAeropuertos){
+                                    out.println("<option value=\""+aerop.getNombre()+"\">"+aerop.getNombre()+" </option>");
+                             
+                                }
+                            %>
+                            
+                            
                         </select>
                     </div>
                     <div>
                         <label for="destino">Destino: </label>
                         <!-- hay que cambiarlo a combobox -->
                         <select name="destino" > type="text" id="destino" >
-                            <option value="inicio-destino">Elegir destino</option>
+                            <%
+                               
+                                out.println("<option value=\"inicio-origen\">Elegir destino</option>");
+                                 
+                                for(Aeropuerto aerop :listaAeropuertos){
+                                    out.println("<option value=\""+aerop.getNombre()+"\">"+aerop.getNombre()+" </option>");
+                             
+                                }
+                            %>
                         </select>
                     </div>
                     <div>
                         <label for="fecha-ida">Fecha ida: </label>
-                        <input type="date" id="fecha-ida"/> 
+                        <input type="date" name="fecha_ida"/> 
                     </div>
                     <div>
-                        <label for="fecha-vuelta">Fecha vuelta: </label>
-                        <input type="date" id="fecha-vuelta"/> 
+                       <label for="fecha-vuelta">Fecha vuelta: </label>
+                       <input type="date" name="fecha_vuelta"/> 
                     </div>
                     <div>
                         <label for="num_billetes">Nº adultos: </label>

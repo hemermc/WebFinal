@@ -17,24 +17,24 @@
         <jsp:include page="ComponenteHeader.jsp"/>
         <div class = "contenedor">
             <div  class="grid-block" style="background-image: url('https://memoriasdeunviajesinretorno.files.wordpress.com/2014/12/airplane-taking-off-road-sky.jpg?w=1200')">
-                <form class="formulario-contacto" action="" method="post">
+                <form class="formulario-contacto" action="ControladorContacto" method="post">
                     <div>
                         <label for="nombre">nombre: </label>
                         <!-- hay que cambiarlo a combobox -->
-                        <input type="text" id="nombre"/>
+                        <input type="text" name="nombre"/>
                     </div>
                     <div>
                         <label for="correo">Correo: </label>
                         <!-- hay que cambiarlo a combobox -->
-                        <input type="email" id="correo"/>
+                        <input type="email" name="correo"/>
                     </div>
                     <div>
                         <label for="telefono">Telefono: </label>
-                        <input type="text" id="telefono"/> 
+                        <input type="text" name="telefono"/> 
                     </div>
                     <div>
                         <label for="comentario">Mensaje: </label>
-                        <textarea id="msg" id="mensaje"></textarea>
+                        <textarea id="msg" name="mensaje"></textarea>
                     </div>
                     <div class="boton-enviar">
                         <button type="submit">Enviar</button>
