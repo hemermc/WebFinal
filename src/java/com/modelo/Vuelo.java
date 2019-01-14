@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 public class Vuelo {
-    private int id_vuelo;
+    private String id_vuelo;
     private String origen;
     private String destino;
     private LocalDate fecha;
@@ -31,7 +31,7 @@ public class Vuelo {
         this.precio = precio;
     }
 
-    public Vuelo(int id_vuelo, String origen, String destino, LocalDate fecha, int id_avion, float precio) {
+    public Vuelo(String id_vuelo, String origen, String destino, LocalDate fecha, int id_avion, float precio) {
         this.id_vuelo = id_vuelo;
         this.fecha = fecha;
         this.origen = origen;

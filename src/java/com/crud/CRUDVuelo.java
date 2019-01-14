@@ -43,7 +43,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                 + Constantes.FECHA + ", " + Constantes.ID_AVION + ", precio) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, vuelo.getId_vuelo());
+            ps.setString(1, vuelo.getId_vuelo());
             ps.setString(2, vuelo.getOrigen());
             ps.setString(3, vuelo.getDestino());
             ps.setDate(4, FormateaFecha.comoDate(vuelo.getFecha()));
@@ -71,7 +71,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
             ps.setDate(3, FormateaFecha.comoDate(vuelo.getFecha()));
             ps.setInt(4, vuelo.getId_avion());
             ps.setFloat(5, vuelo.getPrecio());
-            ps.setInt(6, vuelo.getId_vuelo());
+            ps.setString(6, vuelo.getId_vuelo());
 
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
@@ -151,7 +151,6 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
      * @return
      */
     public ArrayList<Vuelo> obtenerVuelos(String origen, String destino) {
-        Vuelo vuelo = null;
         ArrayList<Vuelo> listaVuelos = new ArrayList<>();
         String consulta = "SELECT * FROM Vuelos WHERE origen = ? AND destino = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)){;
@@ -163,27 +162,25 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDCliente.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla ADMINISTRADORES", ex);
+            Logger.getLogger(CRUDCliente.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla VUELOS", ex);
         }
         return listaVuelos;
     }
     
-    public Vuelo obtenerVuelo(String origen, String destino, LocalDate fecha) {
-        Vuelo vuelo = null;
-        String consulta = "SELECT * FROM Vuelos WHERE origen = ? AND destino = ? AND fecha = ?";
+    public ArrayList<Vuelo> obtenerVuelosOferta(Boolean oferta) {
+        ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+        String consulta = "SELECT * FROM Vuelos WHERE oferta = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-                ps.setString(1, origen);
-                ps.setString(2, destino);
-                ps.setDate(3, FormateaFecha.comoDate(vuelo.getFecha()));
+                ps.setBoolean(1, oferta);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    vuelo = formatearResultado(rs);
+                    listaVuelos.add(formatearResultado(rs));
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla SUBASTAS", ex);
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla VUELOS", ex);
         }
-        return vuelo;
+        return listaVuelos;
     }
 
 
@@ -193,7 +190,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
 
         try {
             vuelo = new Vuelo(
-                    rs.getInt(Constantes.ID_VUELO), 
+                    rs.getString(Constantes.ID_VUELO), 
                     rs.getString(Constantes.ORIGEN),
                     rs.getString(Constantes.DESTINO),
                     FormateaFecha.comoLocalDate(rs.getDate(Constantes.FECHA)),

@@ -30,7 +30,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     }
      @Override
     public void insertar(Aeropuerto aeropuerto) throws ExceptionManager {
-        String consulta = "INSERT INTO Aeropuertos(id_aeropuerto, nombre, lugar, tasa) VALUES (?, ?, ?, ?)";
+        String consulta = "INSERT INTO Aeropuerto(id_aeropuerto, nombre, lugar, tasa) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setInt(1, aeropuerto.getId_aeropuerto());
             ps.setString(2, aeropuerto.getNombre());
@@ -50,7 +50,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
      */
     @Override
     public void actualizar(Aeropuerto aeropuerto) throws ExceptionManager {
-        String consulta = "UPDATE Aeropuertos SET nombre = ?, lugar = ?, tasa =? "
+        String consulta = "UPDATE Aeropuerto SET nombre = ?, lugar = ?, tasa =? "
                 + "WHERE " + Constantes.ID_AEROPUERTO + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, aeropuerto.getNombre());
@@ -72,7 +72,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
      */
     @Override
     public void eliminar(String id) throws ExceptionManager {
-        String consulta = "DELETE FROM Aeropuertos WHERE " + Constantes.ID_AEROPUERTO + " = ?";//Genera la consulta
+        String consulta = "DELETE FROM Aeropuerto WHERE " + Constantes.ID_AEROPUERTO + " = ?";//Genera la consulta
 
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setInt(1, Integer.parseInt(id));
@@ -92,7 +92,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     @Override
     public Aeropuerto obtenerEspecifico(String id) throws ExceptionManager {
         Aeropuerto aeropuerto = null;
-        String consulta = "SELECT * FROM Aeropuertos WHERE " + Constantes.ID_AEROPUERTO + " = ?";
+        String consulta = "SELECT * FROM Aeropuerto WHERE " + Constantes.ID_AEROPUERTO + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = ps.executeQuery()) {
@@ -114,7 +114,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     @Override
     public ArrayList<Aeropuerto> obtenerTodos() {
         ArrayList<Aeropuerto> listaAeropuertos = new ArrayList<>();
-        String consulta = "SELECT * FROM Aeropuertos";
+        String consulta = "SELECT * FROM Aeropuerto";
 
         try (PreparedStatement ps = conexion.prepareStatement(consulta);
                 ResultSet rs = ps.executeQuery()) {
