@@ -1,13 +1,12 @@
 package com.Controlador;
 
-import com.crud.CRUDAdministrador;
-import com.crud.CRUDCliente;
-import com.modelo.Cliente;
+import com.crud.CRUDVuelo;
 import com.modelo.GestionBBDDLocalhost;
-import com.modelo.Usuario;
+import com.modelo.Vuelo;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -56,58 +55,16 @@ public class ControladorBusquedaVuelos extends HttpServlet {
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
             String tipoAcceso = request.getParameter("llamada");
-        HttpSession session = request.getSession(); 
-            switch (tipoAcceso) {
-                case "registro": {//Solo los clientes se podran registrar desde aqui
-                    Cliente cliente = new Cliente(request.getParameter("nombre"),
-                            request.getParameter("apellidos"),
-                            request.getParameter("dni"),
-                            request.getParameter("direccion_entrega"),
-                            Integer.parseInt(request.getParameter("telefono")),
-                            request.getParameter("email"),
-                            request.getParameter("nombre_usuario"),
-                            request.getParameter("clave"));
+            HttpSession session = request.getSession(); 
+            
+                    Vuelo vuelo = new Vuelo(request.getParameter("origen"),
+                                            request.getParameter("destino"), 
+                                            LocalDate.parse(request.getParameter("fecha")));                                                                                                                                 
 
-                    CRUDAdministrador crudAdministrador = new CRUDAdministrador(conexion);
+                    CRUDVuelo viaje = new CRUDVuelo(conexion); 
+                /*    viaje.obtenerVuelo(String origen, String destino, LocalDate(fecha)));*/
 
-                    if (!crudAdministrador.esUsuarioRegistrado(cliente.getNombre_usuario())) {//El usuario no existe en la tabla Administradores
-                        CRUDCliente crudCliente = new CRUDCliente(conexion);
-                        if (!crudCliente.esUsuarioRegistrado(cliente.getNombre_usuario())) {//El usuario no existe en la tabla Clientes
-                            crudCliente.insertar(cliente);//El usuario no existe en la BBDD por lo que se puede registrar
-                            session.setAttribute("seguirregistro", cliente);
-                          //  response.sendRedirect("./DatosPago.jsp");
-                        } else {//El usuario ya exite en la bbdd
-                            response.sendRedirect("./VistaRegistroCliente.jsp");//Se vuelven a pedir los datos
-                        }
-                    }
-                    break;
-                }
-                case "acceso": {
-                    Usuario usuario = new Usuario(
-                            request.getParameter("nombre_usuario"),
-                            request.getParameter("clave"));
-
-                    CRUDAdministrador crudAdministrador = new CRUDAdministrador(conexion);
-
-                    if (crudAdministrador.inicioSesionValido(usuario)) {//Es un administrador
-                        session.setAttribute("usuario", crudAdministrador.obtenerEspecifico(usuario.getNombre_usuario()));//Devuelve el objeto Administrador
-                        session.setAttribute("administrador", true);
-                        response.sendRedirect("./index.jsp");
-                    } else {
-                        CRUDCliente crudCliente = new CRUDCliente(conexion);
-                        if (crudCliente.inicioSesionValido(usuario)) {//Es un cliente
-                            session.setAttribute("usuario", crudCliente.obtenerEspecifico(usuario.getNombre_usuario()));//Devuelve el objeto Cliente
-                            session.setAttribute("administrador", false);
-                            response.sendRedirect("./index.jsp");
-                        } else {//El usuario no existe
-                            response.sendRedirect("./VistaInicioSesion.jsp");//Se vuelven a pedir los datos
-                        }
-                    }
-                    break;
-                }
-                default:
-                    break;
-            }
+                               
             conexion.close();
         } catch (SQLException ex) {
             Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);

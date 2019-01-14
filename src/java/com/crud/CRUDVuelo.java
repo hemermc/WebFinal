@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -123,6 +124,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
     /**
      * Recupera todos los registros de la tabla Vuelos
      *
+     * 
      * @return lista con todos los registros de la tabla
      */
     @Override
@@ -165,6 +167,25 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
         }
         return listaVuelos;
     }
+    
+    public Vuelo obtenerVuelo(String origen, String destino, LocalDate fecha) {
+        Vuelo vuelo = null;
+        String consulta = "SELECT * FROM Vuelos WHERE origen = ? AND destino = ? AND fecha = ?";
+        try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+                ps.setString(1, origen);
+                ps.setString(2, destino);
+                ps.setDate(3, FormateaFecha.comoDate(vuelo.getFecha()));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    vuelo = formatearResultado(rs);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla SUBASTAS", ex);
+        }
+        return vuelo;
+    }
+
 
     @Override
     public Vuelo formatearResultado(ResultSet rs) throws SQLException {
