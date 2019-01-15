@@ -61,7 +61,7 @@ public class ControladorInicio extends HttpServlet {
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
             String tipoAcceso = request.getParameter("llamada");
-        HttpSession session = request.getSession(); 
+            HttpSession session = request.getSession(); 
             switch (tipoAcceso) {
                 case "registro": {//Solo los clientes se podran registrar desde aqui
                     Cliente cliente = new Cliente(request.getParameter("nombre"),
@@ -80,6 +80,7 @@ public class ControladorInicio extends HttpServlet {
                         if (!crudCliente.esUsuarioRegistrado(cliente.getNombre_usuario())) {//El usuario no existe en la tabla Clientes
                             crudCliente.insertar(cliente);//El usuario no existe en la BBDD por lo que se puede registrar
                             session.setAttribute("seguirregistro", cliente);
+                            response.sendRedirect("./index.jsp");
                           //  response.sendRedirect("./DatosPago.jsp");
                         } else {//El usuario ya exite en la bbdd
                             response.sendRedirect("./VistaRegistroCliente.jsp");//Se vuelven a pedir los datos
