@@ -57,8 +57,8 @@ public class ControladorContacto extends HttpServlet {
         String correo = request.getParameter("correo");
         String mensaje = request.getParameter("mensaje");
         EnvioMail envio = new EnvioMail();
-        envio.envioSingleCorreo(correo, nombre,mensaje);
-        response.sendRedirect("./index.jsp");
+        //envio.envioSingleCorreo(correo, nombre,mensaje);
+        response.sendRedirect("./VistaGestionAdmin.jsp");
     }
     
     @Override

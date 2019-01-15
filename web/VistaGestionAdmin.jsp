@@ -3,11 +3,11 @@
     <head>
         <title>Más que vuelos ADMINISTRADOR</title>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <script src="libs/jquery-3.1.1.min.js"></script>
-        <script src="libs/scripts.js"></script>
-        <link rel="stylesheet" href="css/indexStyle.css"/>
+        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body id="body">
+        <jsp:include page="ComponenteHeader.jsp"/>
         <%
             //Comprobamos si la session es nueva.
             if (session == null | session.isNew()) {
@@ -19,35 +19,41 @@
         %>
         <div class = "contenedor">
             <!-- BODY DE LA PAGINA INDEX -->
-            <section id="cuerpo">
-                <section class="zonaErrores">${mensaje}</section> <!-- Seccion donde se muestran los posibles errores al realizar alguna gestion. -->
-                <a class="accordion-section-title" href="#gestionAvion">Gestión de aviones</a> <!-- Aqui va el titulo del tag -->
-                <section id="gestionAvion"> 
-                    <!-- Aqui va el contenido del tag -->
-                    <form action="/ControladorAdminVuelo" method="post">
-                        <input type="radio" name="eleccionUsuario" class="insertarAvion" id="radioInsertarAvion" value="insertarAvion">
-                        <label for="radioInsertarAvion" class="labelInsertarAvion"><b>Insertar Avion</b><br></label>
-                        <section id="formInsertarAvion">
-                            <label>Identificador del avion</label><input type="text" name="idAvion"><br>
-                        </section>
+            <table> 
+                <tr> 
+                    <td class="img-oferta">
+                        Gestion de los aviones
+                        <a href="VistaGestionAvion.jsp">
+                            <img src="src/gestionAvion.jpg" alt ="">
+                        </a>
+                    </td> 
 
-                        <input type="radio" name="eleccionUsuario" class="eliminarAvion" id="radioEliminarAvion" value="eliminarAvion">
-                        <label for="radioEliminarAvion" class="labelEliminarAvion"><b>Eliminar avion</b><br></label>
-                        <section id="formEliminarAvion">
-                            <label id="textoAvionElim">Introduce el identificador del avion que quieres eliminar</label><br>
-                            <label><b>Identificador avion</b></label><input type="text" name="identificadorAntiguoAvion"><br>
-                        </section>
-
-                        <input type="radio" name="eleccionUsuario" class="consultModificAvion" id="radioConsultModificAvion" value="consultModificAvion">
-                        <label for="radioConsultModificAvion" class="labelConsultModificAvion"><b>Consultar avion</b><br></label>
-                        <section id="formConsultModificAvion">
-                            <label>Introduce el identificador del avion que quieres consultar.</label><br>
-                            <label><b>Identificador avion</b></label><input type="text" name="identificadorAvion2"><br><br><br>                                
-                        </section> 
-                        <input type="submit" class="botonEnvio" id="botonEnvioDatos">
-                    </form>
-                </section>
-            </section>
+                    <td class="img-oferta">
+                        Gestion de los vuelos
+                        <a href="VistaGestionVuelo.jsp">
+                            <img src="src/gestionVuelo.jpg"alt ="">
+                        </a>
+                    </td> 
+                    <td class="img-oferta">
+                        Gestion de los aeropuertos
+                        <a href="VistaGestionAeropuerto.jsp">
+                            <img src="src/gestionAeropuerto.jpg" alt ="">
+                        </a>
+                    </td> 
+                    <td class="img-oferta">
+                        Gestion de las compras
+                        <a href="VistaGestionCompras.jsp">
+                            <img src="src/gestionAeropuerto.jpg" alt ="">
+                        </a>
+                    </td>
+                    <td class="img-oferta">
+                        Gestion de los clientes
+                        <a href="VistaGestionCliente.jsp">
+                            <img src="src/gestionCliente.jpg" alt ="">
+                        </a>
+                    </td>
+                </tr>  
+            </table>
             <footer>
                 <p>
                     <br>© 2018 - 2019 Más que vuelos, S.L. - Todos los derechos reservados.</br>

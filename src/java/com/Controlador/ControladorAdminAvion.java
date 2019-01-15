@@ -50,14 +50,14 @@ public class ControladorAdminAvion extends HttpServlet {
             case "insertarA": //Opcion Insertar avion
                 if (cRUDAvion.obtenerEspecifico(req.getParameter(Constantes.ID_AVION)) != null) {
                     //Muestro error 
-                    notificarMensaje(req, res, "ERROR: La pelicula introducida ya existe en la base de datos.");
+                    //notificarMensaje(req, res, "ERROR: La pelicula introducida ya existe en la base de datos.");
                 } else {
                     //Creo el objeto avion
                     avion = crearAvion(req);
                     cRUDAvion.insertar(avion);
                     ArrayList<Avion> allAviones = cRUDAvion.obtenerTodos();
                     session.setAttribute("ArrayListAviones", allAviones);
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/gestion_admin.jsp"));
+                    res.sendRedirect(res.encodeRedirectURL("/VistaConcato.jsp"));
                 }
                 break;
             case "eliminarP": //Opcion Borrar avion
@@ -72,14 +72,14 @@ public class ControladorAdminAvion extends HttpServlet {
                         //Actualizamos el arraylist de avion
                         ArrayList<Avion> allAviones = cRUDAvion.obtenerTodos();
                         session.setAttribute("ArrayListAviones", allAviones);
-                        res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/gestion_admin.jsp"));
+                        res.sendRedirect(res.encodeRedirectURL("/VistaConcato.jsp"));
                     } else {
                         //Muestro error
-                        notificarMensaje(req, res, "ERROR: El avion no se puede borrar, ya ha sido comprado algun billete.");
+                        //notificarMensaje(req, res, "ERROR: El avion no se puede borrar, ya ha sido comprado algun billete.");
                     }
                 } else {
                     //Muestro error
-                    notificarMensaje(req, res, "ERROR: El avion introducido no existe en la base de datos.");
+                    //notificarMensaje(req, res, "ERROR: El avion introducido no existe en la base de datos.");
                 }
                 break;
             case "consultAvion": //Opcion Consultar avion
@@ -88,10 +88,10 @@ public class ControladorAdminAvion extends HttpServlet {
                     //Guardamos la avion que vamos a consultar/modificar
                     session.setAttribute("Avion", avion);
                     //Redireccionamos a la pagina en concreto.
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/cons_modif_peli.jsp"));
+                    res.sendRedirect(res.encodeRedirectURL("VistaConcato.jsp"));
                 } else {
                     //Muestro error
-                    notificarMensaje(req, res, "ERROR: El avion introducido no existe en la base de datos.");
+                    //notificarMensaje(req, res, "ERROR: El avion introducido no existe en la base de datos.");
                 }
                 break;
 
@@ -105,12 +105,12 @@ public class ControladorAdminAvion extends HttpServlet {
                 Integer.parseInt(req.getParameter(" ")));
         return a;
     }
-
+/*
     //Metodo auxiliar para enviar mensajes de error al jsp
     public void notificarMensaje(HttpServletRequest req, HttpServletResponse res, String mensaje) throws ServletException, IOException {
         req.setAttribute("mensaje", mensaje);
         req.getRequestDispatcher("/gestion_admin.jsp").forward(req, res);
-    }
+    }*/
 
     @Override
     public void destroy() {
