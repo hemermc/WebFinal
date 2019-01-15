@@ -4,44 +4,59 @@
     Author     : amunguia
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <jsp:include page="ComponenteHeader.jsp"/>
-        <div class="contenedor">
-            <div class="grid-block">  
-                <form action="ControladorInicio" method="post" class ="formulario-inicio">
-                    <h1>Nueva Cuenta</h1>
-                    <input type="hidden" name="llamada" value="registro" class="registro-input">
-                    <input type="text" name="nombre_usuario" class="registro-input" placeholder="Nombre de usuario">
-                    <input type="password" name="clave" class="registro-input" placeholder="ContraseÃ±a">
-                    <input type="email" name="email" class="registro-input" placeholder="Correo electrÃ³nico">
-                    <input type="text" name="nombre" class="registro-input" placeholder="Nombre">
-                    <input type="text" name="apellidos" class="registro-input" placeholder="Apellidos">
-                    <input type="text" name="dni" class="registro-input" placeholder="DNI">
-                    <input type="text" name="direccion_entrega" class="registro-input" placeholder="DirecciÃ³n">
-                    <input type="number" name="telefono" class="registro-input" placeholder="TelÃ©fono">
-                    <input type="submit" value="Registrar" class="btn-input">
-                </form>	
-            </div>
-        </div>
-        <div id="footer">
-            <p id="links">
-                <a href="#">Politica de privacidad</a>
-                <a href="#">Terminos de uso</a>
-            </p>
-            <p>
-                <a href="#">Inicio</a>
-                <a href="#">Contactanos</a>
-                <a href="#">acerca de nosotros</a>
+<%@ include file="/ComponenteHeader.jsp" %>
+    <div class="container-fluid">
+    <!--<Contenedor centrado>-->
+    <div class="container">
+        <!--Datos-->
 
-            </p>
-            <p>Copyright &copy; 2019 &minus; Mas que&amp;vuelos &middot;</p>
-        </div>
-    </body>
+        <div class="row">
+            <form name="nueva" method="post" action="ControladorInicio">
+                <div  class="col-md-3" style="padding-right:30px;">
+                    <input type="hidden" name="llamada" value="registro" class="registro-input">
+                    <!-- A partir de aquí ya van los campos normales del formulario --->
+                    <div class="form-group">
+                        <label>Usuario</label>
+                        <input type="text" name="nombre_usuario" class="form-control" placeholder="Nombre de usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input name="clave" type="password" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input name="nombre" type="text" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input name="apellidos" type="text" class="form-control" placeholder="Apellidos" required>
+                    </div>
+                    
+                    <input class="btn btn-success" type="submit" value="Registrar">
+
+
+                </div>
+                <div class="col-md-3" style="padding-right:30px;">
+                    <div class="form-group">
+                        <label>Dni</label>
+                        <input name="dni" type="text" class="form-control" placeholder="dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Direccion</label>
+                        <input name="direccion_entrega" type="text" class="form-control" placeholder="Direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <input name="telefono" type="text" class="form-control" placeholder="telefono" required>
+                    </div>
+                </div>
+             </form>
+         </div>
+    </div><!--</Contenedor centrado>-->
+
+    <%@ include file="/ComponenteFooter.jsp" %>
 </html>
