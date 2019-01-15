@@ -63,5 +63,7 @@
             </div>
 	</div>
     </div>
+    <%@ include file="/ComponenteFooter.jsp" %>
+</html>
 
 

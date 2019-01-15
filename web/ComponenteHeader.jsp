@@ -38,17 +38,20 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="index.jsp"  class="navbar-brand" >Más que vuelos</a>
+                    <a href="VistaOfertas.jsp" class="btn btn-warning">Ofertas</a>
+                    <a href="VistaUsuarioDetalles.jsp" class="btn btn-warning">Mi Perfil</a> 
+                    <a href="VistaContacto.jsp" class="btn btn-warning">Contacto</a>           
                 </div>
-
+               
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul>
+                    
                     <% //Comprueba si ha iniciado sesión
                     Usuario usuario = (Usuario) session.getAttribute(Constantes.USUARIO);
                     Boolean administrador = (Boolean) session.getAttribute(Constantes.ADMINISTRADOR);
                     
                     if (usuario == null) {
-                        out.println("<div class=\"form-group\"><table style=\"text-align:right;\"><tr><td><form name=\"login\" action=\"ControladorInicio\" method=\"post\" class=\"navbar-form navbar-right\">"+
+                        out.println("<div class=\"form-group\"><table align=\"right\"><tr><td><form name=\"login\" action=\"ControladorInicio\" method=\"post\" class=\"navbar-form navbar-right\">"+
                         
                             "<input hidden name=\"llamada\" type=\"text\" value=\"acceso\" >"+
                             "<input name=\"nombre_usuario\" type=\"text\" class=\"form-control\" placeholder=\"Nombre de usuario\" required=\"\">"+
@@ -58,25 +61,12 @@
                        
                         
                     } else {
-                        out.println("<td style=\"color:#fff;\" class=\"navbar-brand\">Hola, " + usuario.getNombre_usuario() + "</td>");
-                        out.println("<td><a href=\"" + request.getContextPath() + "/ControladorLogout\">Cerrar Sesión<span><em></em></span></a></td>");
+                        out.println("<td ><a class=\"btn btn-info btn-sm\">Hola,  " + usuario.getNombre_usuario() + "</a></td>");
+                        out.println("<td><a href=\"" + request.getContextPath() + "/ControladorLogout\" class=\"btn btn-danger btn-sm\" >Cerrar Sesión</a></td>");
                     }
                     out.println("</tr></table></div>");
                     %>    
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-                <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <%
-                                out.println("<a href=\"VistaOfertas.jsp\" class=\"btn btn-warning\">Ofertas</a>"
-                                         + " <a href=\"VistaPaquetes.jsp\" class=\"btn btn-warning\">Paquetes</a> "
-                                         + " <a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-warning\">Mi Perfil</a> "
-                                         + " <a href=\"VistaContacto.jsp\" class=\"btn btn-warning\">Contacto</a> ");
-                                %>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
+                </div><!-- /.navbar-collapse -->S
             </div><!-- /.container-fluid -->
         </nav>
                     

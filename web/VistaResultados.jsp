@@ -65,5 +65,6 @@
                             </div>
                     </div>
         </form>
+    </div>
     <%@ include file="/ComponenteFooter.jsp" %>
 </html>

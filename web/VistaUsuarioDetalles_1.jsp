@@ -3,11 +3,63 @@
     Created on : 13-ene-2019, 16:27:53
     Author     : Robert
 --%>
-<%@ include file="/ComponenteHeader.jsp" %>
+
+<%@page import="com.modelo.Compra"%>
+<%@page import="com.modelo.Vuelo"%>
+<%@page import="com.modelo.Cliente"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        table#t01 {
+            width: 100%;
+            background-color: #f1f1c1;
+        }
+
+        table#t02 {
+            width: 100%;
+            background-color: #f1f1c1;
+        }
+
+        table#t03 {
+            width: 100%;
+            background-color: #f1f1c1;
+        }
+    </style>
+    <title>Perfil usuario</title>
+</head>
+
+<body>
+    <jsp:include page="ComponenteHeader.jsp" />
     <div class="contenedor">
-        
-                   <%
-                       Cliente cliente =(Cliente)session.getAttribute("usuario");
+        <table id="t01">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Dni</th>
+                <th>Direccion de entrega</th>
+                <th>Telefono</th>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <%Cliente cliente =(Cliente)session.getAttribute("usuario");
                     String nombre = cliente.getNombre();
                     String apellidos = cliente.getApellidos();
                     String dni = cliente.getDni();
@@ -25,8 +77,18 @@
                           "</tr>");
                     %>
 
+            </tr>
 
-        
+        </table>
+
+        <table id="t02">
+            <tr>
+                <th>Id Compra</th>
+                <th>Dni</th>
+                <th>Asiento</th>
+                <th>Id del vuelo</th>
+            </tr>
+            <tr>
                 <% ArrayList<Compra> comprasUsuario = new ArrayList<>();
                        comprasUsuario = (ArrayList)session.getAttribute("listaCompras");
                         String noValue3 = " No Data";
@@ -54,7 +116,20 @@
                        
                         %>
 
-      
+            </tr>
+
+        </table>
+
+        <table id="t03">
+            <tr>
+                <th>Id Vuelo</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                <th>Fecha</th>
+                <th>Id Avion</th>
+                <th>Precio</th>
+            </tr>
+            <tr>
                 <% ArrayList<Vuelo> listaVuelos = new ArrayList<>();
                            listaVuelos = (ArrayList)session.getAttribute("listaVuelos");
                            String noValue2 = " No Data";
@@ -84,7 +159,20 @@
                            
                             %>
 
-         
+            </tr>
+
+        </table>
+
+        <footer>
+
+            <p>
+                <br>© 2018 - 2019 Más que vuelos, S.L. - Todos los derechos reservados.</br>
+                <span class="icon-paypal"></span>
+                <span class="icon-applepay"></span>
+            </p>
+        </footer>
+
     </div>
-    <%@ include file="/ComponenteFooter.jsp" %>
+
+</body>
 </html>
