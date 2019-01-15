@@ -73,14 +73,14 @@
 		Haz tu reserva y no te arrepentiras de un viaje fantastico, adem&aacutes accederas a nuestras ofertas de forma 
 		autom&aacutetica. </br>			
 		</p>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-       
-        <marquee direction="LEFT">  <br />      
+                <marquee direction="LEFT">  <br />      
             <img height="259" border="0" width="500" alt="" src="https://miviaje.com/wp-content/uploads/2018/07/caribe.jpg" />  
             <img height="259" border="0" width="500" alt="" src="https://www.pullmantur.es/media/pull/responsive/images/pagina-producto/581x354px/mini-caribe.jpg" />
 	    <img height="259" border="0" width="500" alt="" src="https://fundacioncompartir.org/sites/default/files/styles/slick_600x320/public/una-iniciativa-que-fortalece-al-caribe-colombiano.jpg?itok=YpNp2G1Q" /> 
-	</marquee> <br />				
+            </marquee> <br />
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>         
     <%@ include file="/ComponenteFooter.jsp" %>
 </html>

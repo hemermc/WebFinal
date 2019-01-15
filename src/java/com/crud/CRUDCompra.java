@@ -169,4 +169,21 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
         }
         return compra;
     }
+    
+    public ArrayList<Compra> obtenerComprasVuelo (String id_vuelo) {
+        ArrayList<Compra> comprasVuelo = new ArrayList<>();
+        String consulta = "SELECT * FROM Compras WHERE " +  Constantes.ID_VUELO + " = ?";
+        
+          try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+            ps.setString(1, id_vuelo);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                comprasVuelo.add(formatearResultado(rs));
+            }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla COMPRAS", ex);
+        }
+        return comprasVuelo;
+    }
 }

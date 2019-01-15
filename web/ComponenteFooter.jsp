@@ -3,7 +3,6 @@
     Created on : 15-ene-2019, 3:01:38
     Author     : lynch
 --%>
-        </div>
         <div class="container-fluid">
             <footer>
                 <p id="links">
