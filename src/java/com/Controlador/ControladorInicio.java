@@ -29,7 +29,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ControladorInicio", urlPatterns = {"/ControladorInicio"})
 public class ControladorInicio extends HttpServlet {
 
-
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
@@ -61,7 +60,7 @@ public class ControladorInicio extends HttpServlet {
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
             String tipoAcceso = request.getParameter("llamada");
-        HttpSession session = request.getSession(); 
+            HttpSession session = request.getSession();
             switch (tipoAcceso) {
                 case "registro": {//Solo los clientes se podran registrar desde aqui
                     Cliente cliente = new Cliente(request.getParameter("nombre"),
@@ -80,7 +79,7 @@ public class ControladorInicio extends HttpServlet {
                         if (!crudCliente.esUsuarioRegistrado(cliente.getNombre_usuario())) {//El usuario no existe en la tabla Clientes
                             crudCliente.insertar(cliente);//El usuario no existe en la BBDD por lo que se puede registrar
                             session.setAttribute("seguirregistro", cliente);
-                          //  response.sendRedirect("./DatosPago.jsp");
+                            //  response.sendRedirect("./DatosPago.jsp");
                         } else {//El usuario ya exite en la bbdd
                             response.sendRedirect("./VistaRegistroCliente.jsp");//Se vuelven a pedir los datos
                         }
@@ -118,12 +117,12 @@ public class ControladorInicio extends HttpServlet {
             Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-    
+
     private void cerrarSesion(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -136,4 +135,3 @@ public class ControladorInicio extends HttpServlet {
         super.destroy();
     }
 }
-

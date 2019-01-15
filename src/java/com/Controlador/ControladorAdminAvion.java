@@ -37,7 +37,7 @@ public class ControladorAdminAvion extends HttpServlet {
     }
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         String radioSeleccion = (String) req.getParameter("eleccionUsuario");
         GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
