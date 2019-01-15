@@ -6,6 +6,7 @@
 package com.crud;
 
 import com.common.Constantes;
+import com.modelo.Avion;
 import com.modelo.Vuelo;
 import com.modelo.ExceptionManager;
 import com.modelo.FormateaFecha;
@@ -201,4 +202,16 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
         }
         return vuelo;
     }
+
+    public boolean avionUso(String id, LocalDate date) {
+        boolean uso = false;
+        Vuelo vuelo = obtenerEspecifico(id);
+        if(vuelo != null){
+            if(vuelo.getFecha().isAfter(date)){
+                uso = true;
+            }
+        }
+        return uso;
+    }
 }
+
