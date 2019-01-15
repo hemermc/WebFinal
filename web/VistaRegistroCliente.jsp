@@ -11,21 +11,21 @@
         <!--Datos-->
 
         <div class="row">
-            <form name="nueva" method="post" action="ControladorInicio">
+            <form action="ControladorInicio" method="post">
                 <div  class="col-md-3" style="padding-right:30px;">
                     <input type="hidden" name="llamada" value="registro" class="registro-input">
-                    <!-- A partir de aquí ya van los campos normales del formulario --->
+                    <!-- A partir de aqu? ya van los campos normales del formulario --->
                     <div class="form-group">
                         <label>Usuario</label>
                         <input type="text" name="nombre_usuario" class="form-control" placeholder="Nombre de usuario" required>
                     </div>
                     <div class="form-group">
-                        <label>Contraseña</label>
-                        <input name="clave" type="password" class="form-control" placeholder="Contraseña" required>
+                        <label>Contrase?a</label>
+                        <input name="clave" type="password" class="form-control" placeholder="Contrase?a" required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required="">
+                        <input type="email" name="email" class="form-control" placeholder="Correo electr?nico" required="">
                     </div>
                     <div class="form-group">
                         <label>Nombre</label>
