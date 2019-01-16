@@ -61,14 +61,14 @@
                     } else {
                         out.println("<a style=\"color:#fff;\" class=\"navbar-brand\" href=\"#\">Hola, " + usuario.getNombre_usuario() + " </a>" + "<form class=\"navbar-form navbar-left\">");
                         if (!administrador){                        
-                        out.println("<a href=\"VistaOfertas.jsp\" class=\"btn btn-success\">Ofertas</a>"
+                        out.println("<a href=\"VistaOfertasFinal.jsp\" class=\"btn btn-success\">Ofertas</a>"
                                     + " <a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-success\">Mi Perfil</a> "
                                     + " <a href=\"VistaContacto.jsp\" class=\"btn btn-success\">Contacto</a> ");
                         
                         }else {
                             out.println("<a href=\"VistaGestionAeropuerto.jsp\" class=\"btn btn-success\">Aeropuertos</a>"
                                     + " <a href=\"VistaGestionAvion.jsp\" class=\"btn btn-success\">Aviones</a> "
-                                     + " <a href=\"VistaGestionVuelos.jsp\" class=\"btn btn-success\">Vuelos</a> "
+                                     + " <a href=\"VistaGestionVuelo.jsp\" class=\"btn btn-success\">Vuelos</a> "
                                     + " <a href=\"VistaGestionCompra.jsp\" class=\"btn btn-success\">Estadisticas</a> ");
                             
                         }
