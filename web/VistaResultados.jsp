@@ -13,7 +13,7 @@
                         ArrayList<Vuelo> listaVueloIda = (ArrayList) session.getAttribute("vuelos-Ida");
                         out.println("<h2>Billetes de ida</h2>");
                         if (listaVueloIda.size() > 0) {
-                            out.println("<table width=\"200\" cellpadding=\"10\"><tr>");
+                            out.println("<table class=\"table table-bordered\"><tr>");
                             out.println("<tr><th>Origen</th>"+
                                         "<th>Destino</th>"+
                                         "<th>Fecha</th>"+
@@ -41,7 +41,7 @@
                         ArrayList<Vuelo> listaVueloVuelta = (ArrayList) session.getAttribute("vuelos-Vuelta");
                         out.println("<h2>Billetes de ida</h2>");
                         if (listaVueloVuelta.size() > 0) {
-                            out.println("<table width=\"200\" cellpadding=\"10\"><tr>");
+                            out.println("<table class=\"table table-bordered\"><tr>");
                             out.println("<tr><th>Origen</th>"+
                                         "<th>Destino</th>"+
                                         "<th>Fecha</th>"+
