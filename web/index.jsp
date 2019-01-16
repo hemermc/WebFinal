@@ -48,8 +48,8 @@
                             <input type="date" name="fecha_vuelta"/> 
                         </div>
                         <div>
-                            <label for="num_billetes">Nº viajeros: </label>
-                            <input type="number" id="num_billetes" min ="1"/>
+                            <label for="num_billetes">N? viajeros: </label>
+                            <input type="number" name="num_billetes" min ="1"/>
                         </div>
                             <div>
                                 <button type="submit" class="btn btn-default btn-sm">Buscar vuelas disponibles</button>
@@ -66,7 +66,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <p class = "text-center">
-		<h1>Más que vuelos</h1>
+		<h1>M?s que vuelos</h1>
 		Encuentra los mejores precios y los destinos m&aacutes paradisiacos a los mejores precios, 
 		tanto viajes nacionales como internacionales, presume de unas vacaciones de lujo al mejor precio.</br> 
 		Echa un vistazo a nuestros viajes y llevate a los tuyos a pasar unos dias de ensue&ntildeos. </br>

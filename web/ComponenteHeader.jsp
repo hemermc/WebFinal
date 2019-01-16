@@ -29,6 +29,10 @@
         <body  style="background-color:rgba(76,76,76,1);">
         <nav class="navbar navbar-inverse sombra">
             <div class="container">
+                <% //Comprueba si ha iniciado sesión
+                    Usuario usuario = (Usuario) session.getAttribute(Constantes.USUARIO);
+                    Boolean administrador = (Boolean) session.getAttribute(Constantes.ADMINISTRADOR);
+                %>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -38,15 +42,17 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="index.jsp"  class="navbar-brand" >Más que vuelos</a>
+
+                    <a href="VistaOfertas.jsp" class="btn btn-warning">Ofertas</a>
+                    <a href="VistaUsuarioDetalles.jsp" class="btn btn-warning">Mi Perfil</a> 
+                    <a href="VistaContacto.jsp" class="btn btn-warning">Contacto</a>           
+
                 </div>
                
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     
-                    <% //Comprueba si ha iniciado sesión
-                    Usuario usuario = (Usuario) session.getAttribute(Constantes.USUARIO);
-                    Boolean administrador = (Boolean) session.getAttribute(Constantes.ADMINISTRADOR);
-                    
+                    <%
                     if (usuario == null) {
                         out.println("<div class=\"form-group\"><table align=\"right\"><tr><td><form name=\"login\" action=\"ControladorInicio\" method=\"post\" class=\"navbar-form navbar-right\">"+
                         

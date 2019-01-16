@@ -107,7 +107,7 @@ public class ControladorAdminVuelo  extends HttpServlet {
         v = new Vuelo(req.getParameter(Constantes.ID_VUELO), 
                 req.getParameter("origen"), req.getParameter("destino")
                 ,FormateaFecha.comoLocalDate(Date.valueOf(req.getParameter("fecha"))), 
-                Integer.parseInt(req.getParameter("id_avion")), Float.parseFloat(req.getParameter("precio")));
+                Integer.parseInt(req.getParameter("id_avion")), Float.parseFloat(req.getParameter("precio")), Boolean.parseBoolean(req.getParameter("oferta")));
         return v;
     }
    
