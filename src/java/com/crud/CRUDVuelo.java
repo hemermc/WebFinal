@@ -50,6 +50,8 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
             ps.setString(3, vuelo.getDestino());
             ps.setDate(4, FormateaFecha.comoDate(vuelo.getFecha()));
             ps.setInt(5, vuelo.getId_avion());
+            ps.setFloat(5, vuelo.getPrecio());
+            ps.setBoolean(5, vuelo.getOferta());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla VUELOS", ex);
