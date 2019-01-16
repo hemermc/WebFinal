@@ -1,27 +1,5 @@
-<%@page import="com.modelo.ExceptionManager"%>
-<%@page import="com.modelo.Vuelo"%>
-<%@page import="com.crud.CRUDVuelo"%>
-<%@page import="com.modelo.Compra"%>
-<%@page import="com.crud.CRUDCompra"%>
-<%@page import="com.common.Constantes"%>
-<%@page import="com.crud.CRUDAvion"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="com.modelo.GestionBBDDLocalhost"%>
-<%@page import="com.modelo.Avion"%>
-<%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>Más que vuelos ADMINISTRADOR</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body id="body">
-
-        <jsp:include page="ComponenteHeader.jsp"/>
+    <%@ include file="/ComponenteHeader.jsp" %>
         <%
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
@@ -43,6 +21,25 @@
             }
         %>
         <section class="zonaErrores">${mensaje}</section>
+        <body>
+        <div class ="contenedor">
+        <h6 style="color:#FF0000">${mensaje}</h6>
+        <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id_compra</th>
+                            <th>DNI</th>
+                            <th>Asiento</th>
+                            <th>Vuelo</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Fecha</th>
+                            <th>id_avion</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
 
         <%
             try {
@@ -54,24 +51,20 @@
                         if (c != null) {
                             Vuelo v = cRUDVuelo.obtenerEspecifico(c.getId_vuelo());
                             if (v != null) {
-                                out.println("<p>Id compra: </p> "
-                                        + "<input type =\"text\" name=\"id_compra\" value=\"" + c.getId_compra()
-                                        + "\"><p> Dni: </p>"
-                                        + "<input type =\"text\" name=\"dni\" value=\"" + c.getDni() + "\">"
-                                        + "<p> Asiento: </p>"
-                                        + "<input type =\"text\" name=\"asiento\" value=\"" + c.getAsiento() + "\">"
-                                        + "<p> Id vuelo: </p>"
-                                        + "<input type =\"text\" name=\"id_vuelo\" value=\"" + c.getId_vuelo() + "\">"
-                                        + "<p>Origen: </p> "
-                                        + "<input type =\"text\" name=\"origen\" value=\"" + 1 + "\">"
-                                        + "<p>Destino: </p> "
-                                        + "<input type =\"text\" name=\"destino\" value=\"" + 2 + "\">"
-                                        + "<p>Fecha: </p> "
-                                        + "<input type =\"date\" name=\"fecha\" value=\"" + 3 + "\">"
-                                        + "<p>Id avion: </p> "
-                                        + "<input type =\"text\" name=\"id_avion\" value=\"" + 4 + "\">"
-                                        + "<p>Precio: </p> "
-                                        + "<input type =\"text\" name=\"precio\" value=\"" + 5 + "\">");
+                                out.println("<form action=\"ControladorGestionCompra\" method=\"post\">");
+                                out.println("<button type=\"submit\" name=\"action\" value=\"consulta1\" class=\"btn btn-primary\">Contula 1</button>");
+                                out.println("<button type=\"submit\" name=\"action\" value=\"consulta2\" class=\"btn btn-primary\">Contula 2</button>");
+                                out.println("<tr><td><label>" + c.getId_compra() + "</label></td>");
+                                out.println("<td><label>" + c.getDni() + "</label></td>");
+                                out.println("<td><label>" + c.getAsiento()+ "</label></td>");
+                                out.println("<td><label>" + c.getId_vuelo() + "</label></td>");
+                                out.println("<td><label>" + v.getOrigen() + "</label></td>");
+                                out.println("<td><label>" + v.getDestino()+ "</label></td>");
+                                out.println("<td><label>" + v.getFecha() + "</label></td>");
+                                out.println("<td><label>" + v.getId_avion()+ "</label></td>");
+                                out.println("<td><label>" + v.getPrecio() + "</label></td>");
+                                out.println("</tr></form>");
+
                             }
                         }
                     }
@@ -82,13 +75,11 @@
                 out.println("<h3>" + e + " </h3>");
             }
         %>
-        <footer>
-            <p>
-                <br>© 2018 - 2019 Más que vuelos, S.L. - Todos los derechos reservados.</br>
-                <span class ="icon-paypal"></span>
-                <span class ="icon-applepay"></span>
-            </p>
-        </footer>
+                    </tr>
+                </tbody>
+            </table>
+         <%@ include file="/ComponenteFooter.jsp" %>
+        </div>   <%-- cierre contenedor--%>      
     </body>
 </html>
 

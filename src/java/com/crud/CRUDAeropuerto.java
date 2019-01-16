@@ -93,7 +93,7 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     @Override
     public Aeropuerto obtenerEspecifico(String id) throws ExceptionManager {
         Aeropuerto aeropuerto = null;
-        String consulta = "SELECT * FROM Aeropuerto WHERE lugar  = ? LIMIT 1";
+        String consulta = "SELECT * FROM Aeropuerto WHERE " + Constantes.NOMBRE + " = ? LIMIT 1";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -132,7 +132,6 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     public ArrayList<Aeropuerto> obtenerTodos() {
         ArrayList<Aeropuerto> listaAeropuertos = new ArrayList<>();
         String consulta = "SELECT * FROM Aeropuerto";
-
         try (PreparedStatement ps = conexion.prepareStatement(consulta);
                 ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

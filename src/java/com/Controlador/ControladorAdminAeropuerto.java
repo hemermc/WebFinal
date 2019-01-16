@@ -58,6 +58,9 @@ public class ControladorAdminAeropuerto extends HttpServlet {
                         if (!(isNull(req, "lugar") || isNull(req, "nombre") || isNull(req, "tasa"))) {
                             aeropuerto = crearAeropuerto(req);
                             cRUDAeropuerto.insertar(aeropuerto);
+                        } else {
+                            //Muestro error
+                            notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido insertar.");
                         }
                     }
                     break;
@@ -74,17 +77,27 @@ public class ControladorAdminAeropuerto extends HttpServlet {
                     break;
                 }
                 case "update": {
-                    if (id != -1) {
-                        Aeropuerto aeroBeforeUpdate = cRUDAeropuerto.obtenerEspecificoId(id);
-                        if (aeroBeforeUpdate != null) {
-                            Aeropuerto aeroUpdate = crearAeropuerto(req);
-                            aeroUpdate.setId_aeropuerto(aeroBeforeUpdate.getId_aeropuerto());
-                            //Borramos la aeropuerto
-                            cRUDAeropuerto.actualizar(aeroUpdate);
+                    if (!(isNull(req, "lugar") || isNull(req, "nombre") || isNull(req, "tasa"))) {
+                        if (id != -1) {
+                            Aeropuerto aeroBeforeUpdate = cRUDAeropuerto.obtenerEspecificoId(id);
+                            if (aeroBeforeUpdate != null) {
+                                Aeropuerto aeroUpdate = crearAeropuerto(req);
+                                aeroUpdate.setId_aeropuerto(aeroBeforeUpdate.getId_aeropuerto());
+                                //Borramos la aeropuerto
+                                cRUDAeropuerto.actualizar(aeroUpdate);
+                            }
+                        } else {
+                            //Muestro error
+                            notificarMensaje(req, res, "ERROR: El avion no se ha podido actualizar.");
                         }
+                    } else {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
                     }
+
                     break;
                 }
+
                 case "filter": {
                     if (aeropuerto != null) {
                         req.setAttribute("filter", aeropuerto);
@@ -107,9 +120,15 @@ public class ControladorAdminAeropuerto extends HttpServlet {
         a = new Aeropuerto(req.getParameter("nombre"), req.getParameter("lugar"), Float.valueOf(req.getParameter("tasa")));
         return a;
     }
+//Metodo auxiliar para enviar mensajes de error al jsp
+
+    public void notificarMensaje(HttpServletRequest req, HttpServletResponse res, String mensaje) throws ServletException, IOException {
+        req.setAttribute("mensaje", mensaje);
+        req.getRequestDispatcher("/VistaGestionAvion.jsp").forward(req, res);
+    }
 
     public boolean isNull(HttpServletRequest req, String parameter) {
-        if (req.getParameter(parameter) == null) {
+        if (req.getParameter(parameter) == null || req.getParameter(parameter).equals("")) {
             return true;
         } else {
             return false;
