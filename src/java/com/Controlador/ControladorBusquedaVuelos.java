@@ -64,13 +64,14 @@ public class ControladorBusquedaVuelos extends HttpServlet {
             HttpSession session = request.getSession();
             String origen = request.getParameter("origen");
             String destino = request.getParameter("destino");
-            
+            int viajeros = Integer.parseInt(request.getParameter("num_billetes"));
             CRUDVuelo viaje = new CRUDVuelo(conexion); 
             listaVuelosIda = viaje.obtenerVuelos(origen, destino);
             //listaVuelosIda = viaje.obtenerTodos();
             listaVuelosVuelta = viaje.obtenerVuelos(destino, origen);
             session.setAttribute("vuelos-Ida", listaVuelosIda);         
             session.setAttribute("vuelos-Vuelta", listaVuelosVuelta);
+            session.setAttribute("billetes_compra", viajeros);
             response.sendRedirect("./VistaResultados.jsp");
             
             conexion.close();
