@@ -48,7 +48,8 @@
                     }
                        
                         %>       
+         <%@ include file="/ComponenteFooter.jsp" %>
     </div>
-    <%@ include file="/ComponenteFooter.jsp" %>
+    
 </body>
 </html>

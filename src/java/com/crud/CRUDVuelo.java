@@ -167,12 +167,13 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
      * @param categoria
      * @return
      */
-    public ArrayList<Vuelo> obtenerVuelos(String origen, String destino) {
+    public ArrayList<Vuelo> obtenerVuelos(String origen, String destino, LocalDate fecha) {
         ArrayList<Vuelo> listaVuelos = new ArrayList<>();
-        String consulta = "SELECT * FROM Vuelos WHERE origen = ? AND destino = ?";
+        String consulta = "SELECT * FROM Vuelos WHERE origen = ? AND destino = ? AND fecha >= ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)){;
                 ps.setString(1, origen);
                 ps.setString(2, destino);
+                ps.setDate(3,  java.sql.Date.valueOf(fecha));
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     listaVuelos.add(formatearResultado(rs));
@@ -190,7 +191,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
                 ps.setBoolean(1, oferta);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     listaVuelos.add(formatearResultado(rs));
                 }
             }
