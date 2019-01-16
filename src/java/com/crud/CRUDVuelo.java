@@ -41,8 +41,8 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
     public void insertar(Vuelo vuelo) throws ExceptionManager {
         String consulta = "INSERT INTO Vuelos(" + Constantes.ID_VUELO + ", "
                 + Constantes.ORIGEN + ", " + Constantes.DESTINO + ", "
-                + Constantes.FECHA + ", " + Constantes.ID_AVION + ", precio) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+                + Constantes.FECHA + ", " + Constantes.ID_AVION + ", precio, oferta) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, vuelo.getId_vuelo());
             ps.setString(2, vuelo.getOrigen());
@@ -158,7 +158,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                 ps.setString(1, origen);
                 ps.setString(2, destino);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     listaVuelos.add(formatearResultado(rs));
                 }
             }
@@ -196,7 +196,8 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                     rs.getString(Constantes.DESTINO),
                     FormateaFecha.comoLocalDate(rs.getDate(Constantes.FECHA)),
                     rs.getInt(Constantes.ID_AVION),
-                    rs.getFloat("precio"));
+                    rs.getFloat("precio"),
+                    rs.getBoolean("oferta"));
         } catch (SQLException ex) {
             Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla VUELOS", ex);
         }

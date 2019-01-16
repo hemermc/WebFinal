@@ -61,26 +61,18 @@ public class ControladorBusquedaVuelos extends HttpServlet {
             ArrayList<Vuelo> listaVuelosVuelta = new ArrayList<Vuelo>();
             ArrayList<Aeropuerto> listaAeropuertos = new ArrayList<Aeropuerto>();
             Connection conexion = gestionDB.establecerConexion();
-            HttpSession session = request.getSession(); 
-            Vuelo vueloIda = new Vuelo(request.getParameter("origen"),
-                                    request.getParameter("destino"), 
-                                    LocalDate.parse(request.getParameter("fecha_ida")));
-
-            Vuelo vueloVuelta = new Vuelo(request.getParameter("destino"),
-                                    request.getParameter("origen"), 
-                                    LocalDate.parse(request.getParameter("fecha_vuelta")));   
-
+            HttpSession session = request.getSession();
+            String origen = request.getParameter("origen");
+            String destino = request.getParameter("destino");
+            
             CRUDVuelo viaje = new CRUDVuelo(conexion); 
-            listaVuelosIda = viaje.obtenerVuelos(vueloIda.getOrigen(), vueloIda.getDestino());
-            listaVuelosVuelta = viaje.obtenerVuelos(vueloVuelta.getOrigen(), vueloVuelta.getDestino());
-                    
-            session.setAttribute("vuelosIda", listaVuelosIda);         
-            session.setAttribute("vuelosVuelta", listaVuelosVuelta);
-            if(listaVuelosIda.size() > 0){
-                response.sendRedirect("./VistaResultados.jsp");
-            }else{
-                response.sendRedirect("./VistaContacto.jsp");
-            }
+            listaVuelosIda = viaje.obtenerVuelos(origen, destino);
+            //listaVuelosIda = viaje.obtenerTodos();
+            listaVuelosVuelta = viaje.obtenerVuelos(destino, origen);
+            session.setAttribute("vuelos-Ida", listaVuelosIda);         
+            session.setAttribute("vuelos-Vuelta", listaVuelosVuelta);
+            response.sendRedirect("./VistaResultados.jsp");
+            
             conexion.close();
         } catch (SQLException ex) {
             Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
