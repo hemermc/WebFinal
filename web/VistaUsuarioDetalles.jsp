@@ -4,6 +4,7 @@
     Author     : Robert
 --%>
 <%@ include file="/ComponenteHeader.jsp" %>
+<body>
     <div class="contenedor">
         <H1>Datos Cliente: </H1>
          <%
@@ -15,7 +16,7 @@
             int telefono = cliente.getTelefono();
             String email = cliente.getEmail(); 
                     
-                    out.println("<table class=\"table table-bordered\"><tr><td> Nomnbe   : </td><td>"+nombre                 +" </td></tr>"+
+                    out.println("<table class=\"table table-bordered\"><tr><td> Nombre   : </td><td>"+nombre                 +" </td></tr>"+
                                 "<tr><td> Apellidos: </td><td> "+apellidos         +" </td></tr>"+
                                 "<tr><td> D.N.I: </td><td>"+dni                    +" </td></tr>"+     
                                 "<tr><td> Direción: </td><td>"+direccion_entrega      +" </td></tr>"+     
@@ -35,12 +36,12 @@
                             for (Compra e : comprasUsuario){
                                 if(e!= null){
                             
-                              out.println("<table class=\"table table-bordered\"><tr><th> ID vuelo   : </th><td>"+e.getId_compra()         +" </td></tr>"+
+                              out.println("<div><table class=\"table table-bordered\"><tr><th> Id Compra   : </th><td>"+e.getId_compra()         +" </td></tr>"+
                                 "<tr><th> D.N.I: </th><td>"+e.getDni()            +" </td></tr>"+     
                                 "<tr><th> Asiento: </th><td>"+e.getAsiento()      +" </td></tr>"+     
                                 "<tr><th> ID vuelo: </th><td>"+e.getId_vuelo()    +" </td></tr>"+           
                             
-                                "</table>");
+                                "</table></div>");
                             }
                             }
                             
@@ -49,4 +50,5 @@
                         %>       
     </div>
     <%@ include file="/ComponenteFooter.jsp" %>
+</body>
 </html>

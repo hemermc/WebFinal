@@ -23,7 +23,7 @@ public class Vuelo {
     private float precio;
     private Boolean oferta;
     
-    public Vuelo(String origen, String destino, LocalDate fecha, Boolean oferta) {
+    public Vuelo(String origen, String destino, LocalDate fecha,int id_avion, Boolean oferta) {
         this.id_vuelo = id_vuelo;
         this.fecha = fecha;
         this.origen = origen;
