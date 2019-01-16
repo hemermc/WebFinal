@@ -50,6 +50,13 @@ public class ControladorCompra extends HttpServlet {
         Connection conexion = gestionDB.establecerConexion();
 
         HttpSession session = request.getSession();
+        
+        String id_vueloIda = request.getParameter("eleccionIda");
+        String id_vueloVuelta = request.getParameter("eleccionVuelta");
+        
+        this.pulsarBotonCompra(request, response,id_vueloIda, id_vueloVuelta);
+        
+
 
     }
 
@@ -127,21 +134,23 @@ public class ControladorCompra extends HttpServlet {
     Comprueba si el user esta logeado, si no redirecciona al inicio de sesion
     si esta logado el user, comprueba si quedan plazas, en caso de que si queden redirige a la vista de pago
     */
-    protected void pulsarBotonCompra(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void pulsarBotonCompra(HttpServletRequest request, HttpServletResponse response,String id_vueloIda, String id_vueloVuelta) throws ServletException, IOException {
         GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
         Connection conexion = gestionDB.establecerConexion();
 
         HttpSession session = request.getSession();
 
-        String id_vuelo =(String) session.getAttribute("vueloElegido");
+       
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario == null) {
             response.sendRedirect("./VistaInicioSesion.jsp");
         } else {
-            if (this.comprobarPlazas(request, response, id_vuelo)) {
+            if (this.comprobarPlazas(request, response, id_vueloIda) && this.comprobarPlazas(request, response, id_vueloVuelta)) {
+                session.setAttribute("vueloElegidoIda", id_vueloIda);
+                session.setAttribute("vueloElegidoVuelta", id_vueloVuelta);
                 response.sendRedirect("./VistaPago.jsp");     // Redirecciona a la vista de pago
             } else {
-                //NO QUEDAN PLAZAS, REDIRIGIR OTRA VEZ VISTA PARA ELEGIR VUELO?
+                //NO QUEDAN PLAZAS en alguno de los 2 vuelos, REDIRIGIR OTRA VEZ VISTA PARA ELEGIR VUELO?
             }
         }
     }
@@ -150,8 +159,13 @@ public class ControladorCompra extends HttpServlet {
     Funcion que debe ejecutarse cuando el usuario pulse en el radio button del vuelo que quiere comprar
     Establece en la sesion el id del vuelo que el usuario  quiere comprar
     */
-    protected void pulsarBotonEleccion(HttpServletRequest request, HttpServletResponse response, String id_vuelo) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.setAttribute("vueloElegido", id_vuelo);
-    }
+//    protected void pulsarBotonEleccionIda(HttpServletRequest request, HttpServletResponse response, String id_vuelo) throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        session.setAttribute("vueloElegidoIda", id_vuelo);
+//    }
+//    protected void pulsarBotonEleccionVuelta(HttpServletRequest request, HttpServletResponse response, String id_vuelo) throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        
+//        session.setAttribute("vueloElegidoVuelta", id_vuelo);
+//    }
 }

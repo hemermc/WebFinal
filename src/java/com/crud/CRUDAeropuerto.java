@@ -142,5 +142,21 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
         }
         return aeropuerto;
     }
+    public Aeropuerto obtenerPorLugar(String lugar)  throws ExceptionManager {
+        Aeropuerto aeropuerto = null;
+         String consulta = "SELECT * FROM Aeropuerto WHERE lugar = ?";
+         
+            try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+            ps.setString(1, lugar);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    aeropuerto = formatearResultado(rs);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDAeropuerto.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla AEROPUERTOS", ex);
+        }
+        return aeropuerto;
+    }
     
 }
