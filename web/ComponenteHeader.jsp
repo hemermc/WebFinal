@@ -53,16 +53,25 @@
                         
                             "<input hidden name=\"llamada\" type=\"text\" value=\"acceso\" >"+
                             "<input name=\"nombre_usuario\" type=\"text\" class=\"form-control\" placeholder=\"Nombre de usuario\" required=\"\">"+
-                            "<input name=\"clave\" type=\"password\" class=\"form-control\" placeholder=\"Contraseña\" required=\"\">"+
+                            "<input name=\"clave\" type=\"password\" class=\"form-control\" placeholder=\"Contrase&ntilde;a\" required=\"\">"+
                             "<input class=\"btn btn-primary\" type=\"submit\" value=\"Acceder\"></form><td>"+
                             "<td><a href=\"VistaRegistroCliente.jsp\" class=\"btn btn-primary\">Registrar</a></td>");
                        
                         
                     } else {
                         out.println("<a style=\"color:#fff;\" class=\"navbar-brand\" href=\"#\">Hola, " + usuario.getNombre_usuario() + " </a>" + "<form class=\"navbar-form navbar-left\">");
+                        if (!administrador){                        
                         out.println("<a href=\"VistaOfertas.jsp\" class=\"btn btn-success\">Ofertas</a>"
                                     + " <a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-success\">Mi Perfil</a> "
                                     + " <a href=\"VistaContacto.jsp\" class=\"btn btn-success\">Contacto</a> ");
+                        
+                        }else {
+                            out.println("<a href=\"VistaGestionAeropuerto.jsp\" class=\"btn btn-success\">Aeropuertos</a>"
+                                    + " <a href=\"VistaGestionAvion.jsp\" class=\"btn btn-success\">Aviones</a> "
+                                     + " <a href=\"VistaGestionVuelos.jsp\" class=\"btn btn-success\">Vuelos</a> "
+                                    + " <a href=\"VistaGestionCompra.jsp\" class=\"btn btn-success\">Estadisticas</a> ");
+                            
+                        }
                         out.println("<td align=\"right\"><a href=\"" + request.getContextPath() + "/ControladorLogout\" class=\"btn btn-danger btn-sm\" >Cerrar Sesión</a></td>" + "    </form> ");
                     }
                     out.println("</tr></table></div>");
