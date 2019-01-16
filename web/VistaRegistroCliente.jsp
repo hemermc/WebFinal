@@ -20,12 +20,12 @@
                         <input type="text" name="nombre_usuario" class="form-control" placeholder="Nombre de usuario" required>
                     </div>
                     <div class="form-group">
-                        <label>Contrase?a</label>
-                        <input name="clave" type="password" class="form-control" placeholder="Contrase?a" required>
+                        <label>Contraseña</label>
+                        <input name="clave" type="password" class="form-control" placeholder="Contraseña" required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Correo electr?nico" required="">
+                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required="">
                     </div>
                     <div class="form-group">
                         <label>Nombre</label>
@@ -57,6 +57,5 @@
              </form>
          </div>
     </div><!--</Contenedor centrado>-->
-
     <%@ include file="/ComponenteFooter.jsp" %>
 </html>

@@ -95,6 +95,7 @@ public class ControladorOfertas extends HttpServlet {
                         int numeroCompra = (int) (Math.random() * 1000) + 1;
                         //String numeroCompra = java.util.UUID.randomUUID().toString(); // GENERAR IDENTIFICADOR UNICO DE COMPRA
                         Compra compraUsuario  = new Compra(numeroCompra,dni,identificadorVuelo,asiento);
+                        compra.insertar(compraUsuario);
                         mensaje = " COMPRA REALIZADA!";
                         session.setAttribute("mensaje", mensaje);
                         session.setAttribute("compraUsurio", compraUsuario);
