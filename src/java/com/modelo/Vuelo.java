@@ -5,10 +5,7 @@
  */
 package com.modelo;
 
-import com.common.Constantes;
-import java.sql.Date;
 import java.time.LocalDate;
-import javax.servlet.http.HttpServletRequest;
 import lombok.Data;
 
 /**
@@ -38,13 +35,5 @@ public class Vuelo {
         this.id_avion = id_avion;
         this.precio = precio;
     }
-    //Metodo auxiliar para crear vuelo (no repetimos codigo a lo loco)
-    public static Vuelo crearVuelo(HttpServletRequest req) {
-        Vuelo v;
-        v = new Vuelo(req.getParameter(Constantes.ID_VUELO),
-                req.getParameter("origen"), req.getParameter("destino"),
-                 FormateaFecha.comoLocalDate(Date.valueOf(req.getParameter("fecha"))),
-                Integer.parseInt(req.getParameter("id_avion")), Float.parseFloat(req.getParameter("precio")));
-        return v;
-    }
+    
 }

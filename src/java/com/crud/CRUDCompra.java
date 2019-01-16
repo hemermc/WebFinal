@@ -42,7 +42,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setInt(1, compra.getId_compra());
             ps.setString(2, compra.getDni());
-            ps.setInt(3, compra.getId_vuelo());
+            ps.setString(3, compra.getId_vuelo());
             ps.setInt(4, compra.getAsiento());
         ;
             ps.executeUpdate();
@@ -64,7 +64,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
                 + "WHERE " + Constantes.ID_COMPRA + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, compra.getDni());
-             ps.setInt(2, compra.getId_vuelo());
+             ps.setString(2, compra.getId_vuelo());
               ps.setInt(3, compra.getAsiento());
             ps.setInt(4, compra.getId_compra());
             
@@ -163,7 +163,7 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
                     rs.getInt(Constantes.ID_COMPRA),
                     rs.getString(Constantes.DNI),
                     rs.getInt(Constantes.ID_VUELO),
-                    rs.getInt(Constantes.ASIENTO));
+                    rs.getString(Constantes.ASIENTO));
         } catch (SQLException ex) {
             Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla COMPRAS", ex);
         }

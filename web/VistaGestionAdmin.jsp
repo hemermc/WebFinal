@@ -8,49 +8,34 @@
     </head>
     <body id="body">
         <jsp:include page="ComponenteHeader.jsp"/>
-        <%
-            //Comprobamos si la session es nueva.
-            if (session == null | session.isNew()) {
-                session.invalidate();
-                //Redirecciono al login.html para que se loguee.
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VistaInicioSesion.jsp");
-                dispatcher.forward(request, response);
-            }
-        %>
         <div class = "contenedor">
             <!-- BODY DE LA PAGINA INDEX -->
             <table> 
                 <tr> 
                     <td class="img-oferta">
-                        Gestion de los aviones
                         <a href="VistaGestionAvion.jsp">
-                            <img src="src/gestionAvion.jpg" alt ="">
+                            <img src="src/gestionAvion.jpg" alt ="" width="100" height="100">
                         </a>
+                        Gestion de los aviones
                     </td> 
 
                     <td class="img-oferta">
-                        Gestion de los vuelos
                         <a href="VistaGestionVuelo.jsp">
-                            <img src="src/gestionVuelo.jpg"alt ="">
+                            <img src="src/gestionVuelo.jpg" alt ="" width="100" height="100">
                         </a>
+                        Gestion de los vuelos
                     </td> 
                     <td class="img-oferta">
-                        Gestion de los aeropuertos
                         <a href="VistaGestionAeropuerto.jsp">
-                            <img src="src/gestionAeropuerto.jpg" alt ="">
+                            <img src="src/gestionAeropuerto.jpg" alt ="" width="100" height="100">
                         </a>
+                        Gestion de los aeropuertos
                     </td> 
                     <td class="img-oferta">
-                        Gestion de las compras
-                        <a href="VistaGestionCompras.jsp">
-                            <img src="src/gestionAeropuerto.jpg" alt ="">
+                        <a href="VistaGestionCompra.jsp">
+                            <img src="src/gestionAeropuerto.jpg" alt ="" width="100" height="100">
                         </a>
-                    </td>
-                    <td class="img-oferta">
-                        Gestion de los clientes
-                        <a href="VistaGestionCliente.jsp">
-                            <img src="src/gestionCliente.jpg" alt ="">
-                        </a>
+                        Consultar ventas
                     </td>
                 </tr>  
             </table>

@@ -1,59 +1,74 @@
+<%@page import="com.common.Constantes"%>
+<%@page import="com.crud.CRUDAvion"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="com.modelo.GestionBBDDLocalhost"%>
+<%@page import="com.modelo.Avion"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Más que vuelos ADMINISTRADOR</title>
+        <title>MÃ¡s que vuelos ADMINISTRADOR</title>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body id="body">
+
         <jsp:include page="ComponenteHeader.jsp"/>
         <%
+            GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
+            Connection conexion = gestionDB.establecerConexion();
+            CRUDAvion cRUDAvion = new CRUDAvion(conexion);
+            ArrayList<Avion> listAvion = cRUDAvion.obtenerTodos();
+            session.setAttribute(Constantes.SESSION_AVIONES, listAvion);
             //Comprobamos si la session es nueva.
             if (session == null | session.isNew()) {
                 session.invalidate();
                 //Redirecciono al login.html para que se loguee.
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VistaInicioSesion.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("VistaInicioSesion.jsp");
                 dispatcher.forward(request, response);
+            } else {
+                String mensaje = (String) request.getAttribute("mensaje");
+                if (mensaje == null) {
+                    mensaje = "";
+                }
             }
         %>
-        <section id="cuerpo">
-            <section class="zonaErrores">${mensaje}</section> <          !-- Seccion donde se muestran los posibles errores al realizar alguna gestion. -->
-            <a class="accordion-section-title" href="#gestionAvion">Gestión de aviones</a> <!-- Aqui va el titulo del tag -->
-            <section id="gestionAvion"> 
-                <!-- Aqui va el contenido del tag -->
-                <form action="/ControladorAdminVuelo" method="post">
-                    <input type="radio" name="eleccionUsuario" class="insertarAvion" id="radioInsertarAvion" value="insertarAvion">
-                    <label for="radioInsertarAvion" class="labelInsertarAvion"><b>Insertar Avion</b><br></label>
-                    <section id="formInsertarAvion">
-                        <label>Identificador del avion</label><input type="text" name="idAvion"><br>
-                    </section>
+        <section class="zonaErrores">${mensaje}</section>
 
-                    <input type="radio" name="eleccionUsuario" class="eliminarAvion" id="radioEliminarAvion" value="eliminarAvion">
-                    <label for="radioEliminarAvion" class="labelEliminarAvion"><b>Eliminar avion</b><br></label>
-                    <section id="formEliminarAvion">
-                        <label id="textoAvionElim">Introduce el identificador del avion que quieres eliminar</label><br>
-                        <label><b>Identificador avion</b></label><input type="text" name="identificadorAntiguoAvion"><br>
-                    </section>
-
-                    <input type="radio" name="eleccionUsuario" class="consultModificAvion" id="radioConsultModificAvion" value="consultModificAvion">
-                    <label for="radioConsultModificAvion" class="labelConsultModificAvion"><b>Consultar avion</b><br></label>
-                    <section id="formConsultModificAvion">
-                        <label>Introduce el identificador del avion que quieres consultar.</label><br>
-                        <label><b>Identificador avion</b></label><input type="text" name="identificadorAvion2"><br><br><br>                                
-                    </section> 
-                    <input type="submit" class="botonEnvio" id="botonEnvioDatos">
-                </form>
-            </section>
-        </section>
+        <form action="ControladorAdminAvion" method="post">
+            <label>Identificador del avion</label>
+            <input type="number" name="id_avion">
+            <button type="submit" name="action" value="add">Insertar</button>
+            <button type="submit" name="action" value="filter">Filtrar</button><br>
+            <%--<button type="submit" name="action" value="remove">Eliminar</button>--%>
+        </form>
+        <%
+            ArrayList<Avion> listaAviones = (ArrayList) session.getAttribute(Constantes.SESSION_AVIONES);
+            out.println("<h2>Lista de aviones</h2>");
+            if (listaAviones != null) {
+                for(Avion a: listaAviones)
+                    out.println("<form action=\"ControladorAdminAvion\" method=\"post\">"
+                            + "<p>Id avion: </p> "
+                            + "<input type =\"text\" name=\"id_avion\" value=\"" + a.getId_avion()
+                            + "\"><p> Cantidad de asientos: </p>"
+                            + "<input type =\"text\" name=\"nombre\" value=\"" + a.getPlazas() + "\">"
+                            + "<button type=\"submit\" name=\"action\" value=\"update\">Update</button>"
+                            + "</form>");
+                
+            } else {
+                out.println("<h3>No hay ningun avion registrado</h3>");
+            }
+        %>
         <footer>
             <p>
-                <br>© 2018 - 2019 Más que vuelos, S.L. - Todos los derechos reservados.</br>
+                <br>Â© 2018 - 2019 MÃ¡s que vuelos, S.L. - Todos los derechos reservados.</br>
                 <span class ="icon-paypal"></span>
                 <span class ="icon-applepay"></span>
             </p>
         </footer>
-    </div>
 </body>
 </html>
 

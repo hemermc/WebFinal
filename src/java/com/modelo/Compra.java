@@ -16,9 +16,9 @@ public class Compra {
     private int id_compra;
     private String dni;
     private int asiento;
-    private int id_vuelo;
+    private String id_vuelo;
 
-    public Compra(int id_compra, String dni, int asiento, int id_vuelo) {
+    public Compra(int id_compra, String dni, int asiento, String id_vuelo) {
         this.id_compra = id_compra;
         this.dni = dni;
         this.id_vuelo = id_vuelo;

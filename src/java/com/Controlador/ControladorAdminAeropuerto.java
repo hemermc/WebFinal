@@ -7,16 +7,12 @@ package com.Controlador;
 
 import com.common.Constantes;
 import com.crud.CRUDAeropuerto;
-import com.crud.CRUDAvion;
 import com.crud.CRUDVuelo;
 import com.modelo.Aeropuerto;
-import com.modelo.Avion;
-import com.modelo.FormateaFecha;
 import com.modelo.GestionBBDDLocalhost;
-import com.modelo.Vuelo;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -31,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author javi_
  */
 @WebServlet(name = "ControladorAdminAeropuerto", urlPatterns = {"/ControladorAdminAeropuerto"})
-public class ControladorAdminAeropuerto  extends HttpServlet {
+public class ControladorAdminAeropuerto extends HttpServlet {
 
     private GestionBBDDLocalhost bd = GestionBBDDLocalhost.getInstance();
 
@@ -43,75 +39,75 @@ public class ControladorAdminAeropuerto  extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        String radioSeleccion = (String) req.getParameter("eleccionUsuario");
+        String action = req.getParameter("action");
         GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
         Connection conexion = gestionDB.establecerConexion();
         HttpSession session = req.getSession();
         CRUDAeropuerto cRUDAeropuerto = new CRUDAeropuerto(conexion);
-        switch (radioSeleccion) {
-            case "insertarAeropuerto":
-                if (cRUDAeropuerto.obtenerEspecifico(req.getParameter(Constantes.ID_AEROPUERTO)) != null) {
-                    //Muestro error
-                    notificarMensaje(req, res, "ERROR: Las entradas ya han sido creadas previamente.");
-                } else {
-                    Aeropuerto aeropuerto = crearAeropuerto(req);
-                    //Insertamos el aeropuerto
-                    cRUDAeropuerto.insertar(aeropuerto);
-                    //Actualizamos el arraylist de entradas
-                    ArrayList<Aeropuerto> allAeropuerto = cRUDAeropuerto.obtenerTodos();
-                    
-                    session.setAttribute("ArrayListAeropuerto", allAeropuerto);
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/gestion_admin.jsp"));
+        Aeropuerto aeropuerto;
+        String idAeropuerto = req.getParameter(Constantes.ID_AEROPUERTO);
+        if (!"".equals(idAeropuerto)) {
+            switch (action) {
+                case "add": {
+                    if (cRUDAeropuerto.obtenerEspecifico(idAeropuerto) != null) {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El aeropuerto introducido ya existe en la base de datos.");
+                    } else {
+                        //Creo el objeto aeropuerto
+
+                        aeropuerto = crearAeropuerto(req);
+                        cRUDAeropuerto.insertar(aeropuerto);
+                    }
+                    break;
                 }
-                break;
-            case "eliminarAeropuerto":
-                if (cRUDAeropuerto.obtenerEspecifico(req.getParameter(Constantes.ID_AEROPUERTO)) != null) {
-                    //Muestro error
-                    notificarMensaje(req, res, "ERROR: Las entradas no han sido creadas previamente.");
-                } else {
-                    //Borramos la entrada con los datos recogidos
-                    cRUDAeropuerto.eliminar(String.valueOf(req.getParameter(Constantes.ID_VUELO)));
-                    //Actualizamos el arraylist de entradas
-                    ArrayList<Aeropuerto> allAeropuerto = cRUDAeropuerto.obtenerTodos();
-                    
-                    session.setAttribute("ArrayListAeropuerto", allAeropuerto);
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/gestion_admin.jsp"));
+
+                case "remove": {
+                    aeropuerto = cRUDAeropuerto.obtenerEspecifico(idAeropuerto);
+                    if (aeropuerto != null) {
+                        // TODO mirar en la base de datos si ha sido comprado algun asiento por algun usuario
+                        CRUDVuelo cRUDVuelo = new CRUDVuelo(conexion);
+                        LocalDate date = LocalDate.now();
+                        //Borramos la aeropuerto
+                        cRUDAeropuerto.eliminar(String.valueOf(req.getParameter(Constantes.ID_AEROPUERTO)));
+                    } else {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El aeropuerto introducido no existe en la base de datos.");
+                    }
+                    break;
                 }
-                break;
-            case "consultarAeropuerto":
-                Aeropuerto aeropuerto = cRUDAeropuerto.obtenerEspecifico(req.getParameter(Constantes.ID_AEROPUERTO));
-                if (aeropuerto != null) {
-                    //Guardamos la sala que vamos a consultar/modificar
-                    session.setAttribute("Aeropuerto", aeropuerto);
-                    //Redireccionamos a la pagina en concreto.
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/cons_modif_entradas.jsp"));
-                } else {
-                    //Muestro error
-                    notificarMensaje(req, res, "ERROR: Las entradas introducidas no existen en la base de datos.");
+                case "update": {
+                    aeropuerto = cRUDAeropuerto.obtenerEspecifico(idAeropuerto);
+                    if (aeropuerto != null) {
+                        //Borramos la aeropuerto
+                        cRUDAeropuerto.actualizar(aeropuerto);
+                    } else {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El aeropuerto no ha podido ser actualizado.");
+                    }
+                    break;
                 }
-                break;
+            }
+        } else {
+            notificarMensaje(req, res, "No puedes introducir un valor nulo");
         }
+        ArrayList<Aeropuerto> allAeropuertos = cRUDAeropuerto.obtenerTodos();
+        session.setAttribute(Constantes.SESSION_AEROPUERTOS, allAeropuertos);
+        res.sendRedirect(res.encodeRedirectURL("VistaGestionAeropuerto.jsp"));
+        //} 
     }
 
-    public ArrayList arrayToArrayList(String[] a) {
-        ArrayList<String> aL = new ArrayList<>();
-        for (int i = 0; i < a.length; i++) {
-            aL.add(a[i]);
-        }
-        return aL;
-    }
-
+//Metodo auxiliar para crear Aeropuertos (no repetimos codigo a lo loco)
     public Aeropuerto crearAeropuerto(HttpServletRequest req) {
-        Aeropuerto areopuerto;
-        areopuerto = new Aeropuerto((Integer.parseInt(req.getParameter(Constantes.ID_AEROPUERTO))), 
-                req.getParameter("nombre"), req.getParameter("lugar")
-                ,Float.parseFloat(req.getParameter("tasa")));
-        return areopuerto;
+        Aeropuerto a;
+        a = new Aeropuerto(Integer.parseInt(req.getParameter(Constantes.ID_AEROPUERTO)),
+                req.getParameter("nombre"), req.getParameter("lugar"), Float.valueOf(req.getParameter("tasa")));
+        return a;
     }
+
     //Metodo auxiliar para enviar mensajes de error al jsp
     public void notificarMensaje(HttpServletRequest req, HttpServletResponse res, String mensaje) throws ServletException, IOException {
         req.setAttribute("mensaje", mensaje);
-        req.getRequestDispatcher("/gestion_admin.jsp").forward(req, res);
+        req.getRequestDispatcher("/VistaGestionAeropuerto.jsp").forward(req, res);
     }
 
     @Override

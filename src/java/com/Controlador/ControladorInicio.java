@@ -96,7 +96,7 @@ public class ControladorInicio extends HttpServlet {
                     if (crudAdministrador.inicioSesionValido(usuario)) {//Es un administrador
                         session.setAttribute("usuario", crudAdministrador.obtenerEspecifico(usuario.getNombre_usuario()));//Devuelve el objeto Administrador
                         session.setAttribute("administrador", true);
-                        response.sendRedirect("./index.jsp");
+                        response.sendRedirect("./VistaGestionAdmin.jsp");
                     } else {
                         CRUDCliente crudCliente = new CRUDCliente(conexion);
                         if (crudCliente.inicioSesionValido(usuario)) {//Es un cliente

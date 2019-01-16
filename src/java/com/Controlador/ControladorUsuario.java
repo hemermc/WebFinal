@@ -82,7 +82,7 @@ public class ControladorUsuario extends HttpServlet {
                     int size = comprasUsuario.size();
                     float totalGastado = 0;
                     for (int x = 0; x < size; x++) {
-                        Vuelo vuelo = vuelos.obtenerEspecifico(Integer.toString(comprasUsuario.get(x).getId_vuelo()));
+                        Vuelo vuelo = vuelos.obtenerEspecifico(comprasUsuario.get(x).getId_vuelo());
                         
                         listaVuelos.add(vuelo);
                         totalGastado = totalGastado + vuelo.getPrecio();
