@@ -30,12 +30,11 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     }
      @Override
     public void insertar(Aeropuerto aeropuerto) throws ExceptionManager {
-        String consulta = "INSERT INTO Aeropuerto(id_aeropuerto, nombre, lugar, tasa) VALUES (?, ?, ?, ?)";
+        String consulta = "INSERT INTO Aeropuerto(nombre, lugar, tasa) VALUES (?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, aeropuerto.getId_aeropuerto());
-            ps.setString(2, aeropuerto.getNombre());
-            ps.setString(3, aeropuerto.getLugar());
-            ps.setFloat(4, aeropuerto.getTasa());
+            ps.setString(1, aeropuerto.getNombre());
+            ps.setString(2, aeropuerto.getLugar());
+            ps.setFloat(3, aeropuerto.getTasa());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CRUDAeropuerto.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla AEROPUERTOS", ex);
@@ -92,9 +91,9 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     @Override
     public Aeropuerto obtenerEspecifico(String id) throws ExceptionManager {
         Aeropuerto aeropuerto = null;
-        String consulta = "SELECT * FROM Aeropuerto WHERE " + Constantes.ID_AEROPUERTO + " = ?";
+        String consulta = "SELECT * FROM Aeropuerto WHERE " + Constantes.NOMBRE + " = ? LIMIT 1";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, Integer.parseInt(id));
+            ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     aeropuerto = formatearResultado(rs);

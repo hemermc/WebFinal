@@ -111,7 +111,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
         Vuelo vuelo = null;
         String consulta = "SELECT * FROM Vuelos WHERE " + Constantes.ID_VUELO + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, Integer.parseInt(id));
+            ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     vuelo = formatearResultado(rs);
