@@ -42,14 +42,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="index.jsp"  class="navbar-brand" >Más que vuelos</a>
+
                     <a href="VistaOfertas.jsp" class="btn btn-warning">Ofertas</a>
                     <%
                     if (usuario != null){
                         out.println("<a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-warning\">Mi Perfil</a>");
                     }  
                     %>
-                     
+
                     <a href="VistaContacto.jsp" class="btn btn-warning">Contacto</a>           
+
                 </div>
                
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -67,12 +69,15 @@
                        
                         
                     } else {
-                        out.println("<td ><a class=\"btn btn-info btn-sm\">Hola,  " + usuario.getNombre_usuario() + "</a></td>");
-                        out.println("<td><a href=\"" + request.getContextPath() + "/ControladorLogout\" class=\"btn btn-danger btn-sm\" >Cerrar Sesión</a></td>");
+                        out.println("<a style=\"color:#fff;\" class=\"navbar-brand\" href=\"#\">Hola, " + usuario.getNombre_usuario() + " </a>" + "<form class=\"navbar-form navbar-left\">");
+                        out.println("<a href=\"VistaOfertas.jsp\" class=\"btn btn-success\">Ofertas</a>"
+                                    + " <a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-success\">Mi Perfil</a> "
+                                    + " <a href=\"VistaContacto.jsp\" class=\"btn btn-success\">Contacto</a> ");
+                        out.println("<td align=\"right\"><a href=\"" + request.getContextPath() + "/ControladorLogout\" class=\"btn btn-danger btn-sm\" >Cerrar Sesión</a></td>" + "    </form> ");
                     }
                     out.println("</tr></table></div>");
                     %>    
-                </div><!-- /.navbar-collapse -->S
+                </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
                     

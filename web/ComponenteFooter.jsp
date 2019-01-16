@@ -6,8 +6,8 @@
         <div class="container-fluid">
             <footer>
                 <p id="links">
-                <a href="#">Politica de privacidad</a>
-                <a href="#">Terminos de uso</a>
+                    <br><a href="#">Politica de privacidad</a></br>
+                    <br><a href="#">Terminos de uso</a></br>
                 </p>
                 <p>© 2018 - 2019 Más que vuelos, S.L. - Todos los derechos reservados.</p>
             </footer>
