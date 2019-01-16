@@ -5,18 +5,27 @@
 --%>
 <%@ include file="/ComponenteHeader.jsp" %>
     <div class="contenedor">
-        
-                   <%
-                       Cliente cliente =(Cliente)session.getAttribute("usuario");
-                    String nombre = cliente.getNombre();
-                    String apellidos = cliente.getApellidos();
-                    String dni = cliente.getDni();
-                    String direccion_entrega = cliente.getDireccion_entrega();
-                    int telefono = cliente.getTelefono();
-                    String email = cliente.getEmail(); 
+        <H1>Datos Cliente: </H1>
+         <%
+            Cliente cliente =(Cliente)session.getAttribute("usuario");
+            String nombre = cliente.getNombre();
+            String apellidos = cliente.getApellidos();
+            String dni = cliente.getDni();
+            String direccion_entrega = cliente.getDireccion_entrega();
+            int telefono = cliente.getTelefono();
+            String email = cliente.getEmail(); 
+   
+            
+            
                     
+                        out.println("<a href=\"VistaOfertas.jsp\" class=\"btn btn-success\">Ofertas</a>"
+                                    + " <a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-success\">Mi Perfil</a> "
+                                    + " <a href=\"VistaContacto.jsp\" class=\"btn btn-success\">Contacto</a> ");
+                        out.println("<td align=\"right\"><a href=\"" + request.getContextPath() + "/ControladorLogout\" class=\"btn btn-danger btn-sm\" >Cerrar Sesión</a></td>" + "    </form> ");
+                    
+                    out.println("");
                     out.println("<tr>" +
-                            "<td> "+nombre                 +"      </td>"+
+                            "<td> nomnre :"+nombre                 +"      </td>"+
                             "<td> "+apellidos              +"      </td>"+
                             "<td> "+dni                    +"      </td>"+
                             "<td> "+direccion_entrega      +"      </td>"+
@@ -24,8 +33,7 @@
                             "<td> "+email                  +"      </td>"+
                           "</tr>");
                     %>
-
-
+        <h1>nombre</h1>
         
                 <% ArrayList<Compra> comprasUsuario = new ArrayList<>();
                        comprasUsuario = (ArrayList)session.getAttribute("listaCompras");
