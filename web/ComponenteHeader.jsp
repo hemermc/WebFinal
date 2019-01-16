@@ -44,7 +44,12 @@
                     <a href="index.jsp"  class="navbar-brand" >Más que vuelos</a>
 
                     <a href="VistaOfertas.jsp" class="btn btn-warning">Ofertas</a>
-                    <a href="VistaUsuarioDetalles.jsp" class="btn btn-warning">Mi Perfil</a> 
+                    <%
+                    if (usuario != null){
+                        out.println("<a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-warning\">Mi Perfil</a>");
+                    }  
+                    %>
+
                     <a href="VistaContacto.jsp" class="btn btn-warning">Contacto</a>           
 
                 </div>
