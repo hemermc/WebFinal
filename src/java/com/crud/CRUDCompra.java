@@ -37,13 +37,12 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
      */
     @Override
     public void insertar(Compra compra) throws ExceptionManager {
-        String consulta = "INSERT INTO Compras(" + Constantes.ID_COMPRA+ 
-                ", "+ Constantes.DNI +"," +Constantes.ID_VUELO + ","+ Constantes.ASIENTO+") VALUES (?, ?, ?, ?)";
+        String consulta = "INSERT INTO Compras(" + Constantes.DNI +"," +Constantes.ASIENTO + ","+ Constantes.ID_VUELO+", importe_total) VALUES (?, ?, ?,?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, compra.getId_compra());
-            ps.setString(2, compra.getDni());
-            ps.setInt(3, compra.getId_vuelo());
-            ps.setInt(4, compra.getAsiento());
+            ps.setString(1, compra.getDni());
+            ps.setInt(2, compra.getAsiento());
+            ps.setString(3, compra.getId_vuelo());
+            ps.setFloat(4, compra.getImporte());
         ;
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -64,9 +63,9 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
                 + "WHERE " + Constantes.ID_COMPRA + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, compra.getDni());
-             ps.setInt(2, compra.getId_vuelo());
+             ps.setString(2, compra.getId_vuelo());
               ps.setInt(3, compra.getAsiento());
-            ps.setInt(4, compra.getId_compra());
+              ps.setInt(4, compra.getId_compra());
             
 
             ps.executeUpdate();//Envia la consulta a la bbdd
@@ -160,10 +159,11 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
 
         try {
             compra = new Compra(
-                    rs.getInt(Constantes.ID_COMPRA),
                     rs.getString(Constantes.DNI),
-                    rs.getInt(Constantes.ID_VUELO),
-                    rs.getInt(Constantes.ASIENTO));
+                    rs.getInt(Constantes.ASIENTO),
+                    rs.getString(Constantes.ID_VUELO),
+                    rs.getFloat("importe_total"),
+                    rs.getInt(Constantes.ID_COMPRA));
         } catch (SQLException ex) {
             Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla COMPRAS", ex);
         }

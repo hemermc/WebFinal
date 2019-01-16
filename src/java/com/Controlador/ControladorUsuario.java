@@ -46,7 +46,7 @@ public class ControladorUsuario extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+        /*try {
 
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
@@ -74,7 +74,8 @@ public class ControladorUsuario extends HttpServlet {
                     CRUDCompra compras = new CRUDCompra(conexion);
 
                     ArrayList<Compra> comprasUsuario = new ArrayList<>();
-                    comprasUsuario = compras.obtenerComprasUsuario(cliente.getDni());
+                    //comprasUsuario = compras.obtenerComprasUsuario(cliente.getDni());
+                    comprasUsuario = compras.obtenerTodos();
                     session.setAttribute("listaCompras", comprasUsuario);
                     
                     CRUDVuelo vuelos = new CRUDVuelo(conexion);
@@ -82,7 +83,7 @@ public class ControladorUsuario extends HttpServlet {
                     int size = comprasUsuario.size();
                     float totalGastado = 0;
                     for (int x = 0; x < size; x++) {
-                        Vuelo vuelo = vuelos.obtenerEspecifico(Integer.toString(comprasUsuario.get(x).getId_vuelo()));
+                     //   Vuelo vuelo = vuelos.obtenerEspecifico(Integer.toString(comprasUsuario.get(x).getId_vuelo()));
                         
                         listaVuelos.add(vuelo);
                         totalGastado = totalGastado + vuelo.getPrecio();
@@ -102,7 +103,7 @@ public class ControladorUsuario extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+*/
     }
 
 }

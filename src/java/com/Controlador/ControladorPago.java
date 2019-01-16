@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Robert
  */
-@WebServlet(name = "ControladorUsuario", urlPatterns = {"/ControladorUsuario"})
+@WebServlet(name = "ControladorPago", urlPatterns = {"/ControladorPago"})
 public class ControladorPago extends HttpServlet {
 
     @Override
@@ -63,7 +63,6 @@ public class ControladorPago extends HttpServlet {
 
         HttpSession session = request.getSession();
         String id_vuelo = (String) session.getAttribute("vueloElegido");
-        int identificadorVuelo = Integer.parseInt(id_vuelo);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
         if (usuario == null) {
@@ -77,9 +76,8 @@ public class ControladorPago extends HttpServlet {
                 session.setAttribute("datosCliente", cliente);        // se establecen en la sesion los datos del cliente
                 String dni = cliente.getDni();
                 int asiento = (int) (Math.random() * 75) + 1;
-                int numeroCompra = (int) (Math.random() * 1000) + 1;
                 //String numeroCompra = java.util.UUID.randomUUID().toString(); // GENERAR IDENTIFICADOR UNICO DE COMPRA
-                Compra compraUsuario = new Compra(numeroCompra, dni, identificadorVuelo, asiento);
+                Compra compraUsuario = new Compra( dni, asiento,id_vuelo,0);
                 CRUDCompra compra = new CRUDCompra(conexion);
                 compra.insertar(compraUsuario);
                 session.setAttribute("compraRealizada", compraUsuario);  // se establecen los datos de la compra realizada
