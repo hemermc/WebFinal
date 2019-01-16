@@ -67,7 +67,7 @@
             
             <div class="form-group">
                     <div class="col-md-12 text-center">
-                        <button onclick="myFunction()" type="submit" class="btn btn-primary btn-lg">Comprar</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Comprar</button>
                     </div>
             </div>
         </form>
