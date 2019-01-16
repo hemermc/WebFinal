@@ -7,16 +7,11 @@ package com.Controlador;
 
 import com.common.Constantes;
 import com.crud.CRUDAvion;
-import com.crud.CRUDVuelo;
 import com.modelo.Avion;
 import com.modelo.GestionBBDDLocalhost;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,51 +44,37 @@ public class ControladorAdminAvion extends HttpServlet {
         CRUDAvion cRUDAvion = new CRUDAvion(conexion);
         Avion avion;
         String idAvion = req.getParameter(Constantes.ID_AVION);
-        if (!"".equals(idAvion)) {
-            switch (action) {
-                case "add": {
-                    if (cRUDAvion.obtenerEspecifico(idAvion) != null) {
-                        //Muestro error
-                        notificarMensaje(req, res, "ERROR: El avion introducido ya existe en la base de datos.");
-                    } else {
-                        //Creo el objeto avion
-                        avion = crearAvion(req);
-                        cRUDAvion.insertar(avion);
-                    }
-                    break;
+        switch (action) {
+            case "add": {
+                if (isNull(req, "modelo") || isNull(req, "plazas")) {
+                    //Muestro error
+                    notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido insertar.");
+                } else {//Creo el objeto avion
+                    avion = crearAvion(req);
+                    cRUDAvion.insertar(avion);
+                    
                 }
+            }
+            break;
 
-                case "remove": {
-                    avion = cRUDAvion.obtenerEspecifico(idAvion);
-                    if (avion != null) {
-                        // TODO mirar en la base de datos si ha sido comprado algun asiento por algun usuario
-                        CRUDVuelo cRUDVuelo = new CRUDVuelo(conexion);
-                        LocalDate date = LocalDate.now();
-                        if (cRUDVuelo.avionUso(String.valueOf(avion.getId_avion()), date)) {
-                            //Borramos la avion
-                            cRUDAvion.eliminar(String.valueOf(req.getParameter(Constantes.ID_AVION)));
-                        } else {
-                            //Muestro error
-                            notificarMensaje(req, res, "ERROR: El avion no se puede borrar, ya ha sido comprado algun billete.");
-                        }
-                    } else {
-                        //Muestro error
-                        notificarMensaje(req, res, "ERROR: El avion introducido no existe en la base de datos.");
-                    }
-                    break;
-                }case "update": {
-                    avion = cRUDAvion.obtenerEspecifico(idAvion);
-                    if (avion != null) {
-                        cRUDAvion.actualizar(avion);
+            case "update": {
+                if (!(isNull(req, "modelo") || isNull(req, "plazas"))) {
+                    Avion avionBefore = cRUDAvion.obtenerEspecifico(idAvion);
+                    if (avionBefore != null) {
+                        Avion avionUpdate = crearAvion(req);
+                        avionUpdate.setId_avion(avionBefore.getId_avion());
+                        //Borramos la aeropuerto
+                        cRUDAvion.actualizar(avionUpdate);
                     } else {
                         //Muestro error
                         notificarMensaje(req, res, "ERROR: El avion no se ha podido actualizar.");
                     }
-                    break;
+                } else {
+                    //Muestro error
+                    notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
                 }
+                break;
             }
-        } else {
-            notificarMensaje(req, res, "No puedes introducir un valor nulo");
         }
         ArrayList<Avion> allAviones = cRUDAvion.obtenerTodos();
         session.setAttribute(Constantes.SESSION_AVIONES, allAviones);
@@ -104,7 +85,7 @@ public class ControladorAdminAvion extends HttpServlet {
 //Metodo auxiliar para crear Aviones (no repetimos codigo a lo loco)
     public Avion crearAvion(HttpServletRequest req) {
         Avion a;
-        a = new Avion(Integer.parseInt(req.getParameter(Constantes.ID_AVION)));
+        a = new Avion(req.getParameter("modelo"), Integer.parseInt(req.getParameter("plazas")));
         return a;
     }
 
@@ -112,6 +93,14 @@ public class ControladorAdminAvion extends HttpServlet {
     public void notificarMensaje(HttpServletRequest req, HttpServletResponse res, String mensaje) throws ServletException, IOException {
         req.setAttribute("mensaje", mensaje);
         req.getRequestDispatcher("/VistaGestionAvion.jsp").forward(req, res);
+    }
+
+    public boolean isNull(HttpServletRequest req, String parameter) {
+        if (req.getParameter(parameter) == null || req.getParameter(parameter).equals("")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

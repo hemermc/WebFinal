@@ -6,10 +6,12 @@
 package com.Controlador;
 
 import com.crud.CRUDAdministrador;
+import com.crud.CRUDAeropuerto;
 import com.crud.CRUDCliente;
 import com.crud.CRUDCompra;
 import com.crud.CRUDVuelo;
 import com.modelo.Administrador;
+import com.modelo.Aeropuerto;
 import com.modelo.Cliente;
 import com.modelo.Compra;
 import com.modelo.GestionBBDDLocalhost;
@@ -49,16 +51,70 @@ public class ControladorOfertas extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
 
+//            GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
+//            Connection conexion = gestionDB.establecerConexion();
+//
+//            HttpSession session = request.getSession();
+//
+//            CRUDVuelo vuelos = new CRUDVuelo(conexion);
+//            ArrayList<Vuelo> listaVuelosOferta = new ArrayList<>();
+//            listaVuelosOferta = vuelos.obtenerVuelosOferta(Boolean.TRUE);
+//
+//            session.setAttribute("listaVuelosOferta", listaVuelosOferta);
+
+
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
-
             HttpSession session = request.getSession();
+            
+            String id_vuelo = request.getParameter("eleccion");
+            
+            
+        CRUDCliente crudCliente = new CRUDCliente(conexion);
+  
+        Cliente cli =(Cliente) session.getAttribute("usuario");
+        
+        //CALCULAR PRECIO
+        CRUDVuelo vuelo = new CRUDVuelo(conexion);
+        CRUDAeropuerto aeropuerto = new CRUDAeropuerto(conexion);
 
-            CRUDVuelo vuelos = new CRUDVuelo(conexion);
-            ArrayList<Vuelo> listaVuelosOferta = new ArrayList<>();
-            listaVuelosOferta = vuelos.obtenerVuelosOferta(Boolean.TRUE);
+        Vuelo vueloEleccion = vuelo.obtenerEspecifico(id_vuelo);
+        
+        Aeropuerto AeropuertoEleccionOrigen = aeropuerto.obtenerEspecifico(vueloEleccion.getOrigen());
+        Aeropuerto AeropuertoEleccionDestino = aeropuerto.obtenerEspecifico(vueloEleccion.getDestino());
+        
+        float tasaAeropuertoEleccionOrigen = AeropuertoEleccionOrigen.getTasa();
+        float tasaAeropuertoEleccionDestino = AeropuertoEleccionDestino.getTasa();
+        float precioEleccion = vueloEleccion.getPrecio() + tasaAeropuertoEleccionOrigen + tasaAeropuertoEleccionDestino;
+        
+        float ivaEleccion = (21 *100)/precioEleccion;
+        
+        precioEleccion = precioEleccion +ivaEleccion;
+        
+          //->COMPROBAR SI SE APLICA REBAJA 
+        CRUDCompra compra = new CRUDCompra(conexion);
+        ArrayList<Compra> comprasUsuario = new ArrayList<>();
+        comprasUsuario = compra.obtenerComprasUsuario(cli.getDni());
+         if (comprasUsuario.size() % 3 == 0) {
+            precioEleccion = precioEleccion / 2;
+        }
+         
+         session.setAttribute("precioEleccion", precioEleccion);
+         
+         String dni = cli.getDni();
 
-            session.setAttribute("listaVuelosOferta", listaVuelosOferta);
+        int asientoEleccion = (int) (Math.random() * 75) + 1;
+        int numeroCompraEleccion = (int) (Math.random() * 1000) + 1;
+        
+        Compra compraUsuarioEleccion = new Compra(dni, asientoEleccion,id_vuelo,precioEleccion);
+
+        compra.insertar(compraUsuarioEleccion);
+        
+         ArrayList<Compra> list = new ArrayList();
+        list = compra.obtenerComprasUsuario(cli.getDni());
+        session.setAttribute("listaCompras", list);
+        
+        response.sendRedirect("./VistaUsuarioDetalles.jsp");
 
         } catch (Exception ex) {
             Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,16 +140,16 @@ public class ControladorOfertas extends HttpServlet {
                     mensaje = "El vuelo esta completo, no hay asientos disponibles";
                     session.setAttribute("mensaje", mensaje);
                 } else {
-                    
+
                     String nombreUsuario = usuario.getNombre_usuario();
                     CRUDCliente crudCliente = new CRUDCliente(conexion);
                     if (crudCliente.inicioSesionValido(usuario)) {
                         Cliente cliente = crudCliente.obtenerEspecifico(nombreUsuario);
                         String dni = cliente.getDni();
-                        int asiento =  (int) (Math.random() * 75) + 1;
+                        int asiento = (int) (Math.random() * 75) + 1;
                         int numeroCompra = (int) (Math.random() * 1000) + 1;
                         //String numeroCompra = java.util.UUID.randomUUID().toString(); // GENERAR IDENTIFICADOR UNICO DE COMPRA
-                        Compra compraUsuario  = new Compra(dni,asiento,id_vuelo,0);
+                        Compra compraUsuario = new Compra(dni, asiento, id_vuelo, 0);
                         compra.insertar(compraUsuario);
                         mensaje = " COMPRA REALIZADA!";
                         session.setAttribute("mensaje", mensaje);

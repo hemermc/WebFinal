@@ -6,82 +6,89 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>Más que vuelos ADMINISTRADOR</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
+    <%@ include file="/ComponenteHeader.jsp" %>
+    <%    GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
+        Connection conexion = gestionDB.establecerConexion();
+        CRUDAeropuerto cRUDAeropuerto = new CRUDAeropuerto(conexion);
+        ArrayList<Aeropuerto> listAeropuerto = cRUDAeropuerto.obtenerTodos();
+        session.setAttribute(Constantes.SESSION_AEROPUERTOS, listAeropuerto);
+    %>
+
     <body id="body">
+        <div class ="contenedor">
+            <div class ="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-12">
+                    <h1>Insertar un nuevo Aeropuerto a la base de datos</h1>
+                    <form action="ControladorAdminAeropuerto" method="post">
+                        <div class="form-group">
+                            <label>Nombre Aeropuerto</label>
+                            <input type="text" name="nombre" class="form-control" placeholder="Nombre Aeropuerto">
+                        </div>
+                        <div class="form-group">
+                            <label>Lugar </label>
+                            <input type="text" name="lugar" class="form-control" placeholder="Lugar">
+                        </div>
+                        <div class="form-group">
+                            <label>Tasa</label>
+                            <input type="number" name="tasa" class="form-control" min ="0"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" name="action" value="add" class="btn btn-primary btn-lg"> Insertar</button>
+                                <button type="submit" name="action" value="filter" class="btn btn-primary btn-lg"> Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-        <jsp:include page="ComponenteHeader.jsp"/>
-        <%
-            GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
-            Connection conexion = gestionDB.establecerConexion();
-            CRUDAeropuerto cRUDAeropuerto = new CRUDAeropuerto(conexion);
-            ArrayList<Aeropuerto> listAeropuerto = cRUDAeropuerto.obtenerTodos();
-            session.setAttribute(Constantes.SESSION_AEROPUERTOS, listAeropuerto);
-            //Comprobamos si la session es nueva.
-            if (session == null | session.isNew()) {
-                session.invalidate();
-                //Redirecciono al login.html para que se loguee.
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("VistaInicioSesion.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                String mensaje = (String) request.getAttribute("mensaje");
-                if (mensaje == null) {
-                    mensaje = "";
-                }
-                out.print("<section " + mensaje + "</section>");
-            }
-        %>
-        <section class="zonaErrores">${mensaje}</section>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id_aeropuerto</th>
+                            <th>Nombre</th>
+                            <th>Lugar</th>
+                            <th>Tasas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <%                                ArrayList<Aeropuerto> listaAeropuerto = (ArrayList) session.getAttribute(Constantes.SESSION_AEROPUERTOS);
+                                Aeropuerto aeroFilter = (Aeropuerto) request.getAttribute("filter");
 
-        <form action="ControladorAdminAeropuerto" method="post">
-            Insertar un nuevo Aeropuerto a la base de datos<br>
-            <label>Identificador</label>
-            <input type="number" name="id_aeropuerto">
-            <label>Nombre</label>
-            <input type="text" name="nombre">
-            <label>Lugar</label>
-            <input type="text" name="lugar">
-            <label>Tasa</label>
-            <input type="number" name="tasa"><br>
-            <button type="submit" name="action" value="add">Insertar</button><br>
-            <button type="submit" name="action" value="filter">Filtrar</button><br>
-            <%--<button type="submit" name="action" value="remove">Eliminar</button>--%>
-        </form>
-        <%
-            ArrayList<Aeropuerto> listaAeropuerto = (ArrayList) session.getAttribute(Constantes.SESSION_AEROPUERTOS);
-            out.println("<h2>Lista de los aeropuertos en la base de datos</h2>");
-            if (listaAeropuerto != null) {
-                for (Aeropuerto a : listaAeropuerto) {
-                    out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">"
-                            + "<p>Id aeropuerto: </p> "
-                            + "<input type =\"text\" name=\"id_aeropuerto\" value=\"" + a.getId_aeropuerto()
-                            + "\"><p> Nombre: </p>"
-                            + "<input type =\"text\" name=\"nombre\" value=\"" + a.getNombre()
-                            + "\"><p> Lugar: </p>"
-                            + "<input type =\"text\" name=\"lugar\" value=\"" + a.getLugar()
-                            + "\"><p> Tasa: </p> "
-                            + "<input type =\"text\" name=\"tasa\" value=\"" + a.getTasa() + "\">"
-                            + "<button type=\"submit\" name=\"action\" value=\"update\">Update</button>"
-                            + "</form>");
-                }
-
-            } else {
-                out.println("<h3>No hay ningun aeropuerto registrado</h3>");
-            }
-        %>
-        <footer>
-            <p>
-                <br>© 2018 - 2019 Más que vuelos, S.L. - Todos los derechos reservados.</br>
-                <span class ="icon-paypal"></span>
-                <span class ="icon-applepay"></span>
-            </p>
-        </footer>
-    </div>
-</body>
+                                out.println("<h2>Lista de los aeropuertos en la base de datos</h2>");
+                                if (aeroFilter != null) {
+                                    out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">");
+                                    out.println("<tr><td><label>" + aeroFilter.getId_aeropuerto() + "</label></td>");
+                                    out.println("<input type =\"hidden\" name=\"id_aeropuerto\" value=\"" + aeroFilter.getId_aeropuerto() + "\">");
+                                    out.println("<td><input type =\"text\" name=\"nombre\" value=\"" + aeroFilter.getNombre() + "\"></td>");
+                                    out.println("<td><input type =\"text\" name=\"lugar\" value=\"" + aeroFilter.getLugar() + "\"></td>");
+                                    out.println("<td><input type =\"text\" name=\"tasa\" value=\"" + aeroFilter.getTasa() + "\"></td>");
+                                    out.println("<td><button type=\"submit\" name=\"action\" value=\"update\" class=\"btn btn-warning btn-xs\">Update</button><td></tr></form>");
+                                } else {
+                                    if (listaAeropuerto != null) {
+                                        for (Aeropuerto a : listaAeropuerto) {
+                                            out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">");
+                                            out.println("<tr><td><label>" + a.getId_aeropuerto() + "</label></td>");
+                                            out.println("<input type =\"hidden\" name=\"id_aeropuerto\" value=\"" + a.getId_aeropuerto() + "\">");
+                                            out.println("<td><input type =\"text\" name=\"nombre\" value=\"" + a.getNombre() + "\"></td>");
+                                            out.println("<td><input type =\"text\" name=\"lugar\" value=\"" + a.getLugar() + "\"></td>");
+                                            out.println("<td><input type =\"text\" name=\"tasa\" value=\"" + a.getTasa() + "\"></td>");
+                                            out.println("<td><button type=\"submit\" name=\"action\" value=\"update\" class=\"btn btn-warning btn-xs\">Update</button><td></tr></form>");
+                                        }
+                                    } else {
+                                        out.println("<h3>No hay ningun aeropuerto registrado</h3>");
+                                    }
+                                }
+                            %>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <%@ include file="/ComponenteFooter.jsp" %>
+        </div>   <%-- cierre contenedor--%>      
+    </body>
 </html>

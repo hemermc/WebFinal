@@ -16,7 +16,7 @@
 .formulario-inicio{
     /* Centrar formulario*/
     margin:0 auto;
-    margin-left: 20px;
+    margin-left: center;
     width: 400px;
     opacity: 0.8;
     /* Borde formulario */
@@ -24,6 +24,7 @@
     border: 1px solid #CCC;
     border-radius: 1em;
     background:#F2F2FD;
+    cursor: pointer;
 } 
 /* insertamos espacio entre widget*/
 	.formulario-inicio div + div {

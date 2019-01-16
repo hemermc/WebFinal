@@ -37,10 +37,10 @@ public class CRUDAvion implements ICRUDGeneral<Avion> {
      */
     @Override
     public void insertar(Avion avion) throws ExceptionManager {
-        String consulta = "INSERT INTO Aviones(" + Constantes.ID_AVION+ 
+        String consulta = "INSERT INTO Aviones(modelo" + 
                 ", "+ Constantes.PLAZAS +") VALUES (?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, avion.getId_avion());
+            ps.setString(1, avion.getModelo());
             ps.setInt(2, avion.getPlazas());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -56,11 +56,12 @@ public class CRUDAvion implements ICRUDGeneral<Avion> {
      */
     @Override
     public void actualizar(Avion avion) throws ExceptionManager {
-        String consulta = "UPDATE Aviones SET " + Constantes.PLAZAS + " = ? " + " "
+        String consulta = "UPDATE Aviones SET modelo = ?, plazas = ? "
                 + "WHERE " + Constantes.ID_AVION + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            ps.setInt(1, avion.getPlazas());
-            ps.setInt(2, avion.getId_avion());
+            ps.setString(1, avion.getModelo());
+            ps.setInt(2, avion.getPlazas());
+            ps.setInt(3, avion.getId_avion());
             
 
             ps.executeUpdate();//Envia la consulta a la bbdd
@@ -139,6 +140,7 @@ public class CRUDAvion implements ICRUDGeneral<Avion> {
         try {
             avion = new Avion(
                     rs.getInt(Constantes.ID_AVION), 
+                    rs.getString("modelo"),
                     rs.getInt(Constantes.PLAZAS));
         } catch (SQLException ex) {
             Logger.getLogger(CRUDAvion.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla AVIONES", ex);

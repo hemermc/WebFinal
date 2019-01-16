@@ -24,6 +24,11 @@ public class Aeropuerto {
         this.lugar = lugar;
         this.tasa = tasa;
     }
-    
+
+    public Aeropuerto(String nombre, String lugar, float tasa) {
+        this.nombre = nombre;
+        this.lugar = lugar;
+        this.tasa = tasa;
+    }
     
 }

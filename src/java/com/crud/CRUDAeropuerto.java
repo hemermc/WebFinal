@@ -62,6 +62,8 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
             Logger.getLogger(CRUDAeropuerto.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla AEROPUERTOS", ex);
         }
     }
+    
+    
 
     /**
      * Elimina un registro de la tabla Aeropuertos
@@ -91,9 +93,25 @@ public class CRUDAeropuerto implements ICRUDGeneral<Aeropuerto>{
     @Override
     public Aeropuerto obtenerEspecifico(String id) throws ExceptionManager {
         Aeropuerto aeropuerto = null;
-        String consulta = "SELECT * FROM Aeropuerto WHERE " + Constantes.NOMBRE + " = ? LIMIT 1";
+        String consulta = "SELECT * FROM Aeropuerto WHERE lugar  = ? LIMIT 1";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    aeropuerto = formatearResultado(rs);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDAeropuerto.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla AEROPUERTOS", ex);
+        }
+        return aeropuerto;
+    }
+    
+    public Aeropuerto obtenerEspecificoId(int id) throws ExceptionManager {
+        Aeropuerto aeropuerto = null;
+        String consulta = "SELECT * FROM Aeropuerto WHERE " + Constantes.ID_AEROPUERTO + " = ? LIMIT 1";
+        try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     aeropuerto = formatearResultado(rs);
