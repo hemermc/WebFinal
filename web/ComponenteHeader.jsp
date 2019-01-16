@@ -4,7 +4,18 @@
     Author     : amunguia
 --%>
 
-<%@page import="com.modelo.Usuario"%>
+<%@page import="com.crud.*"%>
+<%@page import="java.sql.*"%>
+<%@page import="com.modelo.*"%>
+<%@page import="com.Controlador.*"%>
+<%@page import="com.common.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="com.modelo.Vuelo"%>
+<%@page import="java.util.ArrayList"%>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,39 +23,63 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Más que vuelos</title>
         <link rel="stylesheet" href="css/estilos.css">
-	<link rel="stylesheet" href="css/style.css">
-    </head>
-    <nav>
-        <header>
-            <div class="contenedor">
-                <!--prueba subid no quiero a-->
-                <div class="logo">
-                    <img src="http://dusseldorf.com.ar/wp-content/uploads/agencia-viajes2.jpg" width="200" height="60" >
-                </div>
-                <span class ="login">
-                    <% //Comprueba si ha iniciado sesión
-                            Usuario usuario = (Usuario) session.getAttribute("usuario");
-                            Boolean administrador = (Boolean) session.getAttribute("administrador");
-                    if (usuario == null) {
-                        out.println("<li><a href=\"VistaInicioSesion.jsp\"><span class =\"icon-key\"></span>Acceder</a></li>");
-                        out.println("<li><a href=\"VistaRegistroCliente.jsp\"><span class =\"icon-pen\"></span>Registrarse</a></li>");
-                    } else {
-                        out.println("<li ><a>" + usuario.getNombre_usuario() + "</a></li>");
-                        out.println("<li><a href=\"" + request.getContextPath() + "/ControladorLogout\">Cerrar Sesión</a></li>");
-                    }
-                %>
-                </span>
-                <nav class="menu">
-                    <ul>
-                        <li><a href="index.jsp">Inicio</a></li>
-                        <li><a href="VistaPaquetes.jsp">Paquetes de viaje</a></li>
-                        <li><a href="VistaOfertas.jsp">Ofertas</a></li>
-                         <li><a href="VistaUsuarioDetalles.jsp">Mi perfil</a></li>
-                        <li><a href="VistaContacto.jsp">Contacto</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+        <link rel="stylesheet" href="css/bootstrap.css">
         
-    </nav>
+    </head>
+        <body  style="background-color:rgba(76,76,76,1);">
+        <nav class="navbar navbar-inverse sombra">
+            <div class="container">
+                <% //Comprueba si ha iniciado sesión
+                    Usuario usuario = (Usuario) session.getAttribute(Constantes.USUARIO);
+                    Boolean administrador = (Boolean) session.getAttribute(Constantes.ADMINISTRADOR);
+                %>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.jsp"  class="navbar-brand" >Más que vuelos</a>
 
+                    <a href="VistaOfertas.jsp" class="btn btn-warning">Ofertas</a>
+                    <%
+                    if (usuario != null){
+                        out.println("<a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-warning\">Mi Perfil</a>");
+                    }  
+                    %>
+
+                    <a href="VistaContacto.jsp" class="btn btn-warning">Contacto</a>           
+
+                </div>
+               
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    
+                    <%
+                    if (usuario == null) {
+                        out.println("<div class=\"form-group\"><table align=\"right\"><tr><td><form name=\"login\" action=\"ControladorInicio\" method=\"post\" class=\"navbar-form navbar-right\">"+
+                        
+                            "<input hidden name=\"llamada\" type=\"text\" value=\"acceso\" >"+
+                            "<input name=\"nombre_usuario\" type=\"text\" class=\"form-control\" placeholder=\"Nombre de usuario\" required=\"\">"+
+                            "<input name=\"clave\" type=\"password\" class=\"form-control\" placeholder=\"Contraseña\" required=\"\">"+
+                            "<input class=\"btn btn-primary\" type=\"submit\" value=\"Acceder\"></form><td>"+
+                            "<td><a href=\"VistaRegistroCliente.jsp\" class=\"btn btn-primary\">Registrar</a></td>");
+                       
+                        
+                    } else {
+                        out.println("<a style=\"color:#fff;\" class=\"navbar-brand\" href=\"#\">Hola, " + usuario.getNombre_usuario() + " </a>" + "<form class=\"navbar-form navbar-left\">");
+                        out.println("<a href=\"VistaOfertas.jsp\" class=\"btn btn-success\">Ofertas</a>"
+                                    + " <a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-success\">Mi Perfil</a> "
+                                    + " <a href=\"VistaContacto.jsp\" class=\"btn btn-success\">Contacto</a> ");
+                        out.println("<td align=\"right\"><a href=\"" + request.getContextPath() + "/ControladorLogout\" class=\"btn btn-danger btn-sm\" >Cerrar Sesión</a></td>" + "    </form> ");
+                    }
+                    out.println("</tr></table></div>");
+                    %>    
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+                    
+
+                

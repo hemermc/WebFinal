@@ -4,57 +4,79 @@
     Author     : alexandermunguiaclemente
 --%>
 
-<%@page import="java.time.LocalDate"%>
-<%@page import="com.modelo.Vuelo"%>
-<%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <jsp:include page="ComponenteHeader.jsp"/>
-        <div class="contenedor-pujas">
+<%@ include file="/ComponenteHeader.jsp" %>
+    <div class="contenedor">
+       
+        <form class="formulario" action="ControladorCompra" method="post">
+            <div> 
                     <%
-                        ArrayList<Vuelo> listaVueloIda = (ArrayList) session.getAttribute("vuelosIda");
-                        ArrayList<Vuelo> listaVueloVuelta = (ArrayList) session.getAttribute("vuelosVuelta");
+                        ArrayList<Vuelo> listaVueloIda = (ArrayList) session.getAttribute("vuelos-Ida");
                         out.println("<h2>Billetes de ida</h2>");
-                        if (listaVueloIda != null) {
- 
+                        if (listaVueloIda.size() > 0) {
+                            out.println("<table><tr>");
+                            out.println("<tr><th>Origen</th>"+
+                                        "<th>Destino</th>"+
+                                        "<th>Fecha</th>"+
+                                        "<th>Precio</th>"+
+                                        "<th>Elección</th></tr>" );
+                            
                             for(Vuelo vuelo : listaVueloIda){
-                                out.println("<div>"
-                                        + "<p>Id vuelo: " + vuelo.getId_vuelo() + "</p>"
-                                        + "<p>origen: " + vuelo.getOrigen() + "</p>"
-                                        + "<p>destino: " + vuelo.getDestino() + "</p>"
-                                        + "<p>fecha: " + vuelo.getFecha() + "</p>"
-                                        + "<p>Id aviÃ³n: " + vuelo.getId_avion() + "</p>"
-                                        + "<p>Precio: " + vuelo.getPrecio()+ "</p>"
-                                        + "</div>");
-                           
+                                if(vuelo != null){
+                                     out.println("<tr><td>Fecha: "+vuelo.getOrigen()+"</td>"+
+                                        "<td>Origen: "+vuelo.getDestino()+"</td>"+
+                                        "<td>Destino: "+vuelo.getFecha()+"</td>"+
+                                        "<td>Precio: "+vuelo.getPrecio()+"</td>"+
+                                        "<td align=\"center\"><input required type=\"radio\" name=\"eleccionIda\" value=\""+vuelo.getId_vuelo()+"\"></td></tr>");
+                                        
+                                }
                             }
+                            out.println("</table>");
                         } else {
                             out.println("<h3>No se han encontrado vuelos de ida</h3>");
                         }
-                        out.println("<h2>Billetes de vuelta</h2>");
-                        if (listaVueloVuelta!= null) {
- 
+                         %> 
+            </div>
+            <div>
+                <%
+                        ArrayList<Vuelo> listaVueloVuelta = (ArrayList) session.getAttribute("vuelos-Vuelta");
+                        out.println("<h2>Billetes de ida</h2>");
+                        if (listaVueloVuelta.size() > 0) {
+                            out.println("<table><tr>");
+                            out.println("<tr><th>Origen</th>"+
+                                        "<th>Destino</th>"+
+                                        "<th>Fecha</th>"+
+                                        "<th>Precio</th>"+
+                                        "<th>Elección</th></tr>" );
+                            
                             for(Vuelo vuelo : listaVueloVuelta){
-                                out.println("<div>"
-                                        + "<p>Id vuelo: " + vuelo.getId_vuelo() + "</p>"
-                                        + "<p>origen: " + vuelo.getOrigen() + "</p>"
-                                        + "<p>destino: " + vuelo.getDestino() + "</p>"
-                                        + "<p>fecha: " + vuelo.getFecha() + "</p>"
-                                        + "<p>Id aviÃ³n: " + vuelo.getId_avion() + "</p>"
-                                        + "<p>Precio: " + vuelo.getPrecio()+ "</p>"
-                                        + "</div>");
-                           
+                                if(vuelo != null){
+                                     out.println("<tr><td>Fecha: "+vuelo.getOrigen()+"</td>"+
+                                        "<td>Origen: "+vuelo.getDestino()+"</td>"+
+                                        "<td>Destino: "+vuelo.getFecha()+"</td>"+
+                                        "<td>Precio: "+vuelo.getPrecio()+"</td>"+
+                                        "<td align=\"center\"><input required type=\"radio\" name=\"eleccionVuelta\" value=\""+vuelo.getId_vuelo()+"\"></td></tr>");
+                                        
+                                }
                             }
+                            out.println("</table>");
                         } else {
-                            out.println("<h3>No se han encontrado vuelos de vuelta</h3>");
+                            out.println("<h3>No se han encontrado vuelos de ida</h3>");
                         }
-                    %> 
-        </div>
-    </body>
+                         %>
+            </div>
+            
+            <div class="form-group">
+                    <div class="col-md-12 text-center">
+                        <button onclick="myFunction()" type="submit" class="btn btn-primary btn-lg">Comprar</button>
+                    </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        function myFunction() {
+            confirm("Pulsa boton para confirmar");
+        
+        }
+    </script>
+    <%@ include file="/ComponenteFooter.jsp" %>
 </html>

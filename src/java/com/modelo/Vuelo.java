@@ -5,6 +5,7 @@
  */
 package com.modelo;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import lombok.Data;
 
@@ -20,20 +21,25 @@ public class Vuelo {
     private LocalDate fecha;
     private int id_avion;
     private float precio;
+    private Boolean oferta;
     
-    public Vuelo(String origen, String destino, LocalDate fecha) {
-        this.fecha = fecha;
-        this.origen = origen;
-        this.destino = destino;
-    }
-
-    public Vuelo(String id_vuelo, String origen, String destino, LocalDate fecha, int id_avion, float precio) {
+    public Vuelo(String origen, String destino, LocalDate fecha, Boolean oferta) {
         this.id_vuelo = id_vuelo;
         this.fecha = fecha;
         this.origen = origen;
         this.destino = destino;
         this.id_avion = id_avion;
         this.precio = precio;
+        this.oferta = oferta;
     }
-    
+
+    public Vuelo(String id_vuelo, String origen, String destino, LocalDate fecha, int id_avion, float precio, Boolean oferta) {
+        this.id_vuelo = id_vuelo;
+        this.fecha = fecha;
+        this.origen = origen;
+        this.destino = destino;
+        this.id_avion = id_avion;
+        this.precio = precio;
+        this.oferta = oferta;
+    }
 }

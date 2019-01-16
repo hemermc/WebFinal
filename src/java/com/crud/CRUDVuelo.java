@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,8 +42,8 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
     public void insertar(Vuelo vuelo) throws ExceptionManager {
         String consulta = "INSERT INTO Vuelos(" + Constantes.ID_VUELO + ", "
                 + Constantes.ORIGEN + ", " + Constantes.DESTINO + ", "
-                + Constantes.FECHA + ", " + Constantes.ID_AVION + ", precio) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+                + Constantes.FECHA + ", " + Constantes.ID_AVION + ", precio, oferta) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, vuelo.getId_vuelo());
             ps.setString(2, vuelo.getOrigen());
@@ -121,7 +122,22 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
         }
         return vuelo;
     }
-
+    
+    public ArrayList<Vuelo> obtenerEspecificosCompra(Set<String> id) throws ExceptionManager {
+        ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+        String consulta = "SELECT * FROM Vuelos WHERE " + Constantes.ID_VUELO + " IN:"+id;
+        try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+           
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    listaVuelos.add(formatearResultado(rs));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla VUELOS", ex);
+        }
+        return listaVuelos;
+    }
     /**
      * Recupera todos los registros de la tabla Vuelos
      *
@@ -158,7 +174,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                 ps.setString(1, origen);
                 ps.setString(2, destino);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     listaVuelos.add(formatearResultado(rs));
                 }
             }
@@ -196,7 +212,8 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
                     rs.getString(Constantes.DESTINO),
                     FormateaFecha.comoLocalDate(rs.getDate(Constantes.FECHA)),
                     rs.getInt(Constantes.ID_AVION),
-                    rs.getFloat("precio"));
+                    rs.getFloat("precio"),
+                    rs.getBoolean("oferta"));
         } catch (SQLException ex) {
             Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "No se ha podido formatear la información procedente de la tabla VUELOS", ex);
         }
