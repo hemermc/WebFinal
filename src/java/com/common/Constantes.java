@@ -12,6 +12,11 @@ package com.common;
 public class Constantes {
     public static final String USUARIO = "usuario";
     public static final String ADMINISTRADOR = "administrador";
+    public static final String SESSION_AVIONES = "ArrayListAviones";
+    public static final String SESSION_AEROPUERTOS = "ArrayListAeropuertos";
+    public static final String SESSION_VUELOS = "ArrayListVuelos";
+    public static final String SESSION_COMPRAS = "ArrayListCompras";
+    public static final String SESSION_CLIENTES = "ArrayListClientes";
     public static final String NOMBRE = "nombre";
     public static final String ID_AVION = "id_avion";
     public static final String PLAZAS = "plazas";

@@ -5,7 +5,6 @@
  */
 package com.modelo;
 
-import java.time.LocalDate;
 import lombok.Data;
 
 /**
@@ -22,5 +21,9 @@ public class Avion {
         this.plazas = plazas;
     }
   
+    public Avion(int id_avion) {
+        this.id_avion = id_avion;
+        this.plazas = 75;
+    }
 }
 
