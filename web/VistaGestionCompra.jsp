@@ -19,12 +19,16 @@
                     mensaje = "";
                 }
             }
-        %>
-        <section class="zonaErrores">${mensaje}</section>
+        %> 
         <body>
+        <section class="zonaErrores">${mensaje}</section>
+       
         <div class ="contenedor">
         <h6 style="color:#FF0000">${mensaje}</h6>
         <table class="table table-striped">
+            <form action="ControladorGestionCompra" method="post">
+                <button type="submit" name="action" value="consulta1" class="btn btn-primary">Contula 1</button>
+                <button type="submit" name="action" value="consulta2" class="btn btn-primary">Contula 2</button>
                     <thead>
                         <tr>
                             <th>id_compra</th>
@@ -40,6 +44,7 @@
                     </thead>
                     <tbody>
                         <tr>
+                            
 
         <%
             try {
@@ -51,9 +56,7 @@
                         if (c != null) {
                             Vuelo v = cRUDVuelo.obtenerEspecifico(c.getId_vuelo());
                             if (v != null) {
-                                out.println("<form action=\"ControladorGestionCompra\" method=\"post\">");
-                                out.println("<button type=\"submit\" name=\"action\" value=\"consulta1\" class=\"btn btn-primary\">Contula 1</button>");
-                                out.println("<button type=\"submit\" name=\"action\" value=\"consulta2\" class=\"btn btn-primary\">Contula 2</button>");
+                                ;
                                 out.println("<tr><td><label>" + c.getId_compra() + "</label></td>");
                                 out.println("<td><label>" + c.getDni() + "</label></td>");
                                 out.println("<td><label>" + c.getAsiento()+ "</label></td>");
@@ -63,7 +66,7 @@
                                 out.println("<td><label>" + v.getFecha() + "</label></td>");
                                 out.println("<td><label>" + v.getId_avion()+ "</label></td>");
                                 out.println("<td><label>" + v.getPrecio() + "</label></td>");
-                                out.println("</tr></form>");
+                                out.println("</tr>");
 
                             }
                         }
@@ -78,6 +81,7 @@
                     </tr>
                 </tbody>
             </table>
+            </form>
          <%@ include file="/ComponenteFooter.jsp" %>
         </div>   <%-- cierre contenedor--%>      
     </body>

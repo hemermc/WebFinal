@@ -82,13 +82,25 @@ public class ControladorAdminVuelo extends HttpServlet {
                 case "update": {
                     vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
                     if (vuelo != null) {
-                        cRUDVuelo.actualizar(vuelo);
+                        Vuelo vueloAfter = crearVuelo(req);
+                        //Borramos la aeropuerto
+                        cRUDVuelo.actualizar(vueloAfter);
                     } else {
                         //Muestro error
-                        notificarMensaje(req, res, "ERROR: El vuelo no se ha podido actualizar.");
+                        notificarMensaje(req, res, "ERROR: El avion no se ha podido actualizar.");
                     }
-                    break;
                 }
+
+                break;
+
+                case "filter": {
+                    vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
+                    if (vuelo != null) {
+                        req.setAttribute("filter", vuelo);
+                        req.getRequestDispatcher("/VistaGestionVuelo.jsp").forward(req, res);
+                    }
+                }
+                break;
             }
         }
         ArrayList<Vuelo> allVuelos = cRUDVuelo.obtenerTodos();
@@ -112,8 +124,8 @@ public class ControladorAdminVuelo extends HttpServlet {
     public Vuelo crearVuelo(HttpServletRequest req) {
 //mirate el constructor de vuelo
         Vuelo a;
-        a = new Vuelo(req.getParameter("id_vuelo"),req.getParameter("origen"),
-                req.getParameter("destino"), LocalDate.now(),Integer.parseInt(req.getParameter("id_avion")),
+        a = new Vuelo(req.getParameter("id_vuelo"), req.getParameter("origen"),
+                req.getParameter("destino"), LocalDate.parse(req.getParameter("fecha")), Integer.parseInt(req.getParameter("id_avion")),
                 Float.valueOf(req.getParameter("precio")), true);
         return a;
 
@@ -122,9 +134,9 @@ public class ControladorAdminVuelo extends HttpServlet {
     //Metodo auxiliar para enviar mensajes de error al jsp
     public void notificarMensaje(HttpServletRequest req, HttpServletResponse res, String mensaje) throws ServletException, IOException {
         req.setAttribute("mensaje", mensaje);
-        req.getRequestDispatcher("/gestion_admin.jsp").forward(req, res);
+        req.getRequestDispatcher("/VistaGestionVuelo.jsp").forward(req, res);
     }
-    
+
     public boolean isNull(HttpServletRequest req, String parameter) {
         if (req.getParameter(parameter) == null || req.getParameter(parameter).equals("")) {
             return true;

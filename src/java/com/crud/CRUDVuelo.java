@@ -50,8 +50,8 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
             ps.setString(3, vuelo.getDestino());
             ps.setDate(4, FormateaFecha.comoDate(vuelo.getFecha()));
             ps.setInt(5, vuelo.getId_avion());
-            ps.setFloat(5, vuelo.getPrecio());
-            ps.setBoolean(5, vuelo.getOferta());
+            ps.setFloat(6, vuelo.getPrecio());
+            ps.setBoolean(7, vuelo.getOferta());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla VUELOS", ex);
@@ -67,7 +67,7 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
     @Override
     public void actualizar(Vuelo vuelo) throws ExceptionManager {
         String consulta = "UPDATE Vuelos SET " + Constantes.ORIGEN + " = ?, " + Constantes.DESTINO
-                + " = ?, " + Constantes.FECHA + ", " + Constantes.ID_AVION + " "
+                + " = ?, " + Constantes.FECHA + "= ?, " + Constantes.ID_AVION + "= ?, precio= ?, oferta= ? "
                 + "WHERE " + Constantes.ID_VUELO + " = ?";
         try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
             ps.setString(1, vuelo.getOrigen());
@@ -75,13 +75,14 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
             ps.setDate(3, FormateaFecha.comoDate(vuelo.getFecha()));
             ps.setInt(4, vuelo.getId_avion());
             ps.setFloat(5, vuelo.getPrecio());
-            ps.setString(6, vuelo.getId_vuelo());
+            ps.setBoolean(6, vuelo.getOferta());
+            ps.setString(7, vuelo.getId_vuelo());
 
             ps.executeUpdate();//Envia la consulta a la bbdd
         } catch (SQLException ex) {
             Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al actualizar un registro de la tabla VUELOS", ex);
         }
-    }
+    }    
 
     /**
      * Elimina un registro de la tabla Vuelos

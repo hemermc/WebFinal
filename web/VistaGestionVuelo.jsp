@@ -34,9 +34,9 @@
                     <form action="ControladorAdminVuelo" method="post">
                         <div class="form-group">
                             <label>Id Vuelo </label>
-                            <input type="text" name="id_vuelo" class="form-control" required/>
+                            <input type="text" name="id_vuelo" class="form-control" />
                             <label>Origen: </label>
-                            <select name="origen" required> 
+                            <select name="origen" > 
                                 <%
                                     CRUDAeropuerto aero = new CRUDAeropuerto(conexion);
                                     ArrayList<Aeropuerto> listaAeropuertos = (ArrayList) aero.obtenerTodos();
@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label for="destino">Destino: </label>
-                            <select name="destino" required > 
+                            <select name="destino"  > 
                                 <%
                                     out.println("<option value=\"inicio-origen\">Elegir destino</option>");
                                     for (Aeropuerto aerop : listaAeropuertos) {
@@ -60,14 +60,14 @@
                             </select>
                         </div>
                             <label>Avion: </label>
-                            <input type="number" name="id_avion" class="form-control" min ="0" required/>
+                            <input type="number" name="id_avion" class="form-control" min ="0" />
                         <div>
                             <label for="fecha-ida">Fecha: </label>
-                            <input type="date" name="fecha" required/> 
+                            <input type="date" name="fecha" /> 
                         </div>
                         <div class="form-group">
                             <label>Precio: </label>
-                            <input type="number" name="precio" class="form-control" min ="0" required/>
+                            <input type="number" name="precio" class="form-control" min ="0" />
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 text-center">
@@ -97,7 +97,7 @@
                                 Vuelo vueloFilter = (Vuelo) request.getAttribute("filter");
                                 out.println("<h2>Lista de vuelos</h2>");
                                 if (vueloFilter != null) {
-                                    out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">");
+                                    out.println("<form action=\"ControladorAdminVuelo\" method=\"post\">");
                                     out.println("<tr><td><label>" + vueloFilter.getId_vuelo() + "</label></td>");
                                     out.println("<td><input type =\"hidden\" name=\"id_vuelo\" value=\"" + vueloFilter.getId_vuelo() + "\"></td>");
                                     out.println("<td><input type =\"text\" name=\"origen\" value=\"" + vueloFilter.getOrigen() + "\"></td>");
@@ -111,7 +111,7 @@
                                     if (listaVuelos != null) {
                                         for (Vuelo r : listaVuelos) {
                                             if (r != null) {
-                                                out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">");
+                                                out.println("<form action=\"ControladorAdminVuelo\" method=\"post\">");
                                                 out.println("<tr><td><label>" + r.getId_vuelo() + "</label></td>");
                                                 out.println("<td><input type =\"hidden\" name=\"id_vuelo\" value=\"" + r.getId_vuelo() + "\"></td>");
                                                 out.println("<td><input type =\"text\" name=\"origen\" value=\"" + r.getOrigen() + "\"></td>");
