@@ -25,7 +25,7 @@
                                     out.println("<option value=\"inicio-origen\">Elegir origen</option>");
 
                                     for(Aeropuerto aerop :listaAeropuertos){
-                                        out.println("<option value=\""+aerop.getNombre()+"\">"+aerop.getNombre()+" </option>");
+                                        out.println("<option value=\""+aerop.getLugar()+"\">"+aerop.getNombre()+" - "+ aerop.getLugar()+"</option>");
                                         }
                                 %>                                                
                             </select>
@@ -36,7 +36,7 @@
                                 <%
                                         out.println("<option value=\"inicio-origen\">Elegir destino</option>");
                                         for(Aeropuerto aerop :listaAeropuertos){
-                                            out.println("<option value=\""+aerop.getNombre()+"\">"+aerop.getNombre()+" </option>");   
+                                            out.println("<option value=\""+aerop.getLugar()+"\">"+aerop.getNombre()+" - "+ aerop.getLugar()+" </option>");   
                                         }
                                 %>
                             </select>
