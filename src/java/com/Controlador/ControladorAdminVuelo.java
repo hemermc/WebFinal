@@ -19,7 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +32,7 @@ import javax.servlet.http.HttpSession;
  * @author javi_
  */
 @WebServlet(name = "ControladorAdminVuelo", urlPatterns = {"/ControladorAdminVuelo"})
-public class ControladorAdminVuelo  extends HttpServlet {
+public class ControladorAdminVuelo extends HttpServlet {
 
     private GestionBBDDLocalhost bd = GestionBBDDLocalhost.getInstance();
 
@@ -38,58 +42,62 @@ public class ControladorAdminVuelo  extends HttpServlet {
     }
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        String radioSeleccion = (String) req.getParameter("eleccionUsuario");
+        String action = req.getParameter("action");
         GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
         Connection conexion = gestionDB.establecerConexion();
         HttpSession session = req.getSession();
         CRUDVuelo cRUDVuelo = new CRUDVuelo(conexion);
-        switch (radioSeleccion) {
-            case "insertarVuelo":  //Opcion Insertar vuelo
-                if (cRUDVuelo.obtenerEspecifico(req.getParameter(Constantes.ID_VUELO)) != null) {
-                    //Muestro error
-                    notificarMensaje(req, res, "ERROR: El vuelo introducido ya existe en la base de datos.");
-                } else {
-                    Vuelo vuelo = crearVuelo(req);
-                    //Insertamos la sala
-                    cRUDVuelo.insertar(vuelo);
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/gestion_admin.jsp"));
+        String idVuelo = req.getParameter(Constantes.ID_VUELO);
+        Vuelo vuelo;
+        if (!"".equals(idVuelo)) {
+            switch (action) {
+                case "add": {
+                    if (cRUDVuelo.obtenerEspecifico(idVuelo) != null) {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El vuelo introducido ya existe en la base de datos.");
+                    } else {
+                        //Creo el objeto vuelo
+                        vuelo = crearVuelo(req);
+                        cRUDVuelo.insertar(vuelo);
+                    }
+                    break;
                 }
-                break;
-            case "eliminarVuelo":  //Opcion Borrar vuelo
-                if (cRUDVuelo.obtenerEspecifico(req.getParameter(Constantes.ID_VUELO)) != null) {
-                    //Borramos la sala
-                    cRUDVuelo.eliminar(String.valueOf(req.getParameter(Constantes.ID_VUELO)));
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/gestion_admin.jsp"));
-                } else {
-                    //Muestro error
-                    notificarMensaje(req, res, "ERROR: El vuelo introducido no existe en la base de datos.");
+
+                case "remove": {
+                    vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
+                    if (vuelo != null) {
+
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El vuelo no se puede borrar, ya ha sido comprado algun billete.");
+
+                    } else {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El vuelo introducido no existe en la base de datos.");
+                    }
+                    break;
                 }
-                break;
-            case "consultVuelo":  //Opcion Consultar vuelo
-                Vuelo vuelo = cRUDVuelo.obtenerEspecifico(req.getParameter(Constantes.ID_VUELO));
-                if (vuelo != null) {
-                    //Guardamos la sala que vamos a consultar/modificar
-                    session.setAttribute("Vuelo", vuelo);
-                    //Redireccionamos a la pagina en concreto.
-                    res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/cons_modif_sala.jsp"));
-                } else {
-                    //Muestro error
-                    notificarMensaje(req, res, "ERROR: El vuelo introducida no existe en la base de datos.");
+
+                case "update": {
+                    vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
+                    if (vuelo != null) {
+                        cRUDVuelo.actualizar(vuelo);
+                    } else {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: El vuelo no se ha podido actualizar.");
+                    }
+                    break;
                 }
-                break;
-            case "Modificar Vuelo": //Opcion Modificar vuelo
-                //Creo el objeto vuelo
-                vuelo = crearVuelo(req);
-                //Modifico la sala
-                cRUDVuelo.actualizar(vuelo);
-                //Vuelvo a mandar al cliente a la misma pagina para que compruebe los cambios realizados en la sala
-                //Guardamos la sala que vamos a consultar/modificar
-                session.setAttribute("Vuelo", vuelo);
-                //Redireccionamos a la pagina en concreto.
-                res.sendRedirect(res.encodeRedirectURL("/PracticaFinal/cons_modif_sala.jsp"));
-                break;
+            }
+        }
+        ArrayList<Vuelo> allVuelos = cRUDVuelo.obtenerTodos();
+        session.setAttribute(Constantes.SESSION_VUELOS, allVuelos);
+        res.sendRedirect(res.encodeRedirectURL("VistaGestionVuelo.jsp"));
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -101,16 +109,17 @@ public class ControladorAdminVuelo  extends HttpServlet {
         return aL;
     }
 
-    //Metodo auxiliar para crear vuelo (no repetimos codigo a lo loco)
     public Vuelo crearVuelo(HttpServletRequest req) {
-        Vuelo v;
-        v = new Vuelo(req.getParameter(Constantes.ID_VUELO), 
-                req.getParameter("origen"), req.getParameter("destino")
-                ,FormateaFecha.comoLocalDate(Date.valueOf(req.getParameter("fecha"))), 
-                Integer.parseInt(req.getParameter("id_avion")), Float.parseFloat(req.getParameter("precio")), Boolean.parseBoolean(req.getParameter("oferta")));
-        return v;
+//mirate el constructor de vuelo
+        Vuelo a;
+        a = new Vuelo(req.getParameter(Constantes.ID_AVION), req.getParameter("origen"),
+                req.getParameter("destino"), LocalDate.now(),
+                Integer.parseInt(req.getParameter(Constantes.ID_AVION)),
+                Float.valueOf(req.getParameter("precio")));
+        return a;
+
     }
-   
+
     //Metodo auxiliar para enviar mensajes de error al jsp
     public void notificarMensaje(HttpServletRequest req, HttpServletResponse res, String mensaje) throws ServletException, IOException {
         req.setAttribute("mensaje", mensaje);

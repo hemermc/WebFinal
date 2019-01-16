@@ -57,9 +57,9 @@ public class ControladorBusquedaVuelos extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
-            ArrayList<Vuelo> listaVuelosIda = new ArrayList<Vuelo>();
-            ArrayList<Vuelo> listaVuelosVuelta = new ArrayList<Vuelo>();
-            ArrayList<Aeropuerto> listaAeropuertos = new ArrayList<Aeropuerto>();
+            ArrayList<Vuelo> listaVuelosIda = new ArrayList<>();
+            ArrayList<Vuelo> listaVuelosVuelta = new ArrayList<>();
+            ArrayList<Aeropuerto> listaAeropuertos = new ArrayList<>();
             Connection conexion = gestionDB.establecerConexion();
             HttpSession session = request.getSession();
             String origen = request.getParameter("origen");
