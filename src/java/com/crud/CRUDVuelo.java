@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -121,7 +122,22 @@ public class CRUDVuelo implements ICRUDGeneral<Vuelo> {
         }
         return vuelo;
     }
-
+    
+    public ArrayList<Vuelo> obtenerEspecificosCompra(Set<String> id) throws ExceptionManager {
+        ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+        String consulta = "SELECT * FROM Vuelos WHERE " + Constantes.ID_VUELO + " IN:"+id;
+        try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+           
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    listaVuelos.add(formatearResultado(rs));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUDVuelo.class.getName()).log(Level.SEVERE, "Error al obtener un registro de la tabla VUELOS", ex);
+        }
+        return listaVuelos;
+    }
     /**
      * Recupera todos los registros de la tabla Vuelos
      *

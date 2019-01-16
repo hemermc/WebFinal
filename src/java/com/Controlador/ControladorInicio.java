@@ -7,12 +7,19 @@ package com.Controlador;
 
 import com.crud.CRUDAdministrador;
 import com.crud.CRUDCliente;
+import com.crud.CRUDCompra;
+import com.crud.CRUDVuelo;
 import com.modelo.Cliente;
+import com.modelo.Compra;
 import com.modelo.GestionBBDDLocalhost;
 import com.modelo.Usuario;
+import com.modelo.Vuelo;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -101,9 +108,17 @@ public class ControladorInicio extends HttpServlet {
                         response.sendRedirect("./index.jsp");
                     } else {
                         CRUDCliente crudCliente = new CRUDCliente(conexion);
+                        Cliente cli = crudCliente.obtenerEspecifico(usuario.getNombre_usuario());
                         if (crudCliente.inicioSesionValido(usuario)) {//Es un cliente
                             session.setAttribute("usuario", crudCliente.obtenerEspecifico(usuario.getNombre_usuario()));//Devuelve el objeto Cliente
                             session.setAttribute("administrador", false);
+                            CRUDCompra compras = new CRUDCompra(conexion);
+
+                            ArrayList<Compra> comprasUsuario = new ArrayList<>();
+
+                            comprasUsuario = compras.obtenerComprasUsuario(cli.getDni());
+                            session.setAttribute("listaCompras", comprasUsuario);
+                           
                             response.sendRedirect("./index.jsp");
                         } else {//El usuario no existe
                             response.sendRedirect("./VistaInicioSesion.jsp");//Se vuelven a pedir los datos

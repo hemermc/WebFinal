@@ -15,6 +15,7 @@ import com.modelo.Compra;
 import com.modelo.GestionBBDDLocalhost;
 import com.modelo.Usuario;
 import com.modelo.Vuelo;
+import static java.awt.SystemColor.window;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -48,9 +49,20 @@ public class ControladorCompra extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
         Connection conexion = gestionDB.establecerConexion();
-
+        
         HttpSession session = request.getSession();
-
+        String ida =  request.getParameter("eleccionIda");
+        String vuelta = request.getParameter("eleccionVuelta");
+        session.setAttribute("respuesta", ida+ ",-" +vuelta);
+        CRUDCliente crudCliente = new CRUDCliente(conexion);
+        CRUDCompra crudCompra = new CRUDCompra(conexion);
+        Cliente cli =(Cliente) session.getAttribute("usuario");
+        Compra comp = new Compra(cli.getDni(),1,ida,200);
+        crudCompra.insertar(comp);
+        ArrayList<Compra> list = new ArrayList();
+        list = crudCompra.obtenerComprasUsuario(cli.getDni());
+        session.setAttribute("listaCompras", list);
+        response.sendRedirect("./VistaUsuarioDetalles.jsp");
     }
 
 //    protected void insertarCompra(HttpServletRequest request, HttpServletResponse response, String id_vuelo) throws ServletException, IOException {

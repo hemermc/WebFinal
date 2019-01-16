@@ -68,7 +68,6 @@ public class ControladorOfertas extends HttpServlet {
     protected void comprarBillete(String id_vuelo, HttpServletRequest request, HttpServletResponse response) {
         try {
             String mensaje = "";
-            int identificadorVuelo = Integer.parseInt(id_vuelo);
             GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
             Connection conexion = gestionDB.establecerConexion();
 
@@ -94,7 +93,7 @@ public class ControladorOfertas extends HttpServlet {
                         int asiento =  (int) (Math.random() * 75) + 1;
                         int numeroCompra = (int) (Math.random() * 1000) + 1;
                         //String numeroCompra = java.util.UUID.randomUUID().toString(); // GENERAR IDENTIFICADOR UNICO DE COMPRA
-                        Compra compraUsuario  = new Compra(numeroCompra,dni,identificadorVuelo,asiento);
+                        Compra compraUsuario  = new Compra(dni,asiento,id_vuelo,0);
                         compra.insertar(compraUsuario);
                         mensaje = " COMPRA REALIZADA!";
                         session.setAttribute("mensaje", mensaje);

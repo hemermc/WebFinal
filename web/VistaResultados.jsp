@@ -6,7 +6,8 @@
 
 <%@ include file="/ComponenteHeader.jsp" %>
     <div class="contenedor">
-        <form class="formulario" action="ControladorPago" method="post">
+       
+        <form class="formulario" action="ControladorCompra" method="post">
             <div> 
                     <%
                         ArrayList<Vuelo> listaVueloIda = (ArrayList) session.getAttribute("vuelos-Ida");
@@ -21,9 +22,9 @@
                             
                             for(Vuelo vuelo : listaVueloIda){
                                 if(vuelo != null){
-                                     out.println("<tr><td>Fecha: "+vuelo.getFecha()+"</td>"+
-                                        "<td>Origen: "+vuelo.getOrigen()+"</td>"+
-                                        "<td>Destino: "+vuelo.getDestino()+"</td>"+
+                                     out.println("<tr><td>Fecha: "+vuelo.getOrigen()+"</td>"+
+                                        "<td>Origen: "+vuelo.getDestino()+"</td>"+
+                                        "<td>Destino: "+vuelo.getFecha()+"</td>"+
                                         "<td>Precio: "+vuelo.getPrecio()+"</td>"+
                                         "<td align=\"center\"><input required type=\"radio\" name=\"eleccionIda\" value=\""+vuelo.getId_vuelo()+"\"></td></tr>");
                                         
@@ -49,9 +50,9 @@
                             
                             for(Vuelo vuelo : listaVueloVuelta){
                                 if(vuelo != null){
-                                     out.println("<tr><td>Fecha: "+vuelo.getFecha()+"</td>"+
-                                        "<td>Origen: "+vuelo.getOrigen()+"</td>"+
-                                        "<td>Destino: "+vuelo.getDestino()+"</td>"+
+                                     out.println("<tr><td>Fecha: "+vuelo.getOrigen()+"</td>"+
+                                        "<td>Origen: "+vuelo.getDestino()+"</td>"+
+                                        "<td>Destino: "+vuelo.getFecha()+"</td>"+
                                         "<td>Precio: "+vuelo.getPrecio()+"</td>"+
                                         "<td align=\"center\"><input required type=\"radio\" name=\"eleccionVuelta\" value=\""+vuelo.getId_vuelo()+"\"></td></tr>");
                                         
@@ -66,10 +67,16 @@
             
             <div class="form-group">
                     <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Comprar</button>
+                        <button onclick="myFunction()" type="submit" class="btn btn-primary btn-lg">Comprar</button>
                     </div>
             </div>
         </form>
     </div>
+    <script>
+        function myFunction() {
+            confirm("Pulsa boton para confirmar");
+        
+        }
+    </script>
     <%@ include file="/ComponenteFooter.jsp" %>
 </html>

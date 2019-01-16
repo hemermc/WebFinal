@@ -13,17 +13,24 @@ import lombok.Data;
  */
 @Data
 public class Compra {
-    private int id_compra;
     private String dni;
     private int asiento;
-    private int id_vuelo;
+    private String id_vuelo;
+    private float importe;
+    private int id_compra;
 
-    public Compra(int id_compra, String dni, int asiento, int id_vuelo) {
-        this.id_compra = id_compra;
+    public Compra( String dni, int asiento, String id_vuelo, float importe) {
         this.dni = dni;
         this.id_vuelo = id_vuelo;
         this.asiento = asiento;
+        this.importe = importe;
     }
-    
+    public Compra( String dni, int asiento, String id_vuelo, float importe, int id_compra) {
+        this.dni = dni;
+        this.id_vuelo = id_vuelo;
+        this.asiento = asiento;
+        this.importe = importe;
+        this.id_compra = id_compra;
+    }
     
 }
