@@ -3,6 +3,7 @@
     Created on : 15-ene-2019, 3:01:38
     Author     : lynch
 --%>
+
         <div class="container-fluid">
             <footer>
                 <p id="links">
@@ -15,5 +16,3 @@
         <!-- Ficheros para el funcionamiento del JavaScript: jQuery y Bootstrap -->
         <script src="/DWfinal/dist/js/jquery-3.1.1.js" type="text/javascript"></script>
         <script src="/DWfinal/dist/js/bootstrap.js" type="text/javascript"></script>
-    </body>
-</html>

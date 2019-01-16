@@ -18,7 +18,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Más que vuelos</title>
@@ -26,7 +26,6 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         
     </head>
-        <body  style="background-color:rgba(76,76,76,1);">
         <nav class="navbar navbar-inverse sombra">
             <div class="container">
                 <% //Comprueba si ha iniciado sesión
@@ -42,16 +41,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="index.jsp"  class="navbar-brand" >Más que vuelos</a>
-
-                    <a href="VistaOfertas.jsp" class="btn btn-warning">Ofertas</a>
-                    <%
-                    if (usuario != null){
-                        out.println("<a href=\"VistaUsuarioDetalles.jsp\" class=\"btn btn-warning\">Mi Perfil</a>");
-                    }  
-                    %>
-
-                    <a href="VistaContacto.jsp" class="btn btn-warning">Contacto</a>           
-
+       
                 </div>
                
                 <!-- Collect the nav links, forms, and other content for toggling -->

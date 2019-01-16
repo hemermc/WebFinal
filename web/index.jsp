@@ -3,8 +3,10 @@
     Created on : 31-dic-2018, 15:13:29
     Author     : lynch
 --%>
-
+<html>
+    <body>
 <%@ include file="/ComponenteHeader.jsp" %>
+
     <div class="contenedor">
          <div class="row">
             <div class="col-md-1"></div>
@@ -81,6 +83,8 @@
             </div>
             <div class="col-md-1"></div>
         </div>
+        <%@ include file="/ComponenteFooter.jsp" %>
     </div>         
-    <%@ include file="/ComponenteFooter.jsp" %>
+    
+    </body>
 </html>

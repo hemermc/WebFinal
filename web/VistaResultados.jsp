@@ -3,17 +3,17 @@
     Created on : 14-ene-2019, 19:24:50
     Author     : alexandermunguiaclemente
 --%>
-
+<link rel="stylesheet" href="./css/estilos.css"/>
 <%@ include file="/ComponenteHeader.jsp" %>
     <div class="contenedor">
        
         <form class="formulario" action="ControladorCompra" method="post">
-            <div> 
+            <div class="form-group"> 
                     <%
                         ArrayList<Vuelo> listaVueloIda = (ArrayList) session.getAttribute("vuelos-Ida");
                         out.println("<h2>Billetes de ida</h2>");
                         if (listaVueloIda.size() > 0) {
-                            out.println("<table><tr>");
+                            out.println("<table width=\"200\" cellpadding=\"10\"><tr>");
                             out.println("<tr><th>Origen</th>"+
                                         "<th>Destino</th>"+
                                         "<th>Fecha</th>"+
@@ -22,10 +22,10 @@
                             
                             for(Vuelo vuelo : listaVueloIda){
                                 if(vuelo != null){
-                                     out.println("<tr><td>Fecha: "+vuelo.getOrigen()+"</td>"+
-                                        "<td>Origen: "+vuelo.getDestino()+"</td>"+
-                                        "<td>Destino: "+vuelo.getFecha()+"</td>"+
-                                        "<td>Precio: "+vuelo.getPrecio()+"</td>"+
+                                     out.println("<tr><td>"+vuelo.getOrigen()+"</td>"+
+                                        "<td>"+vuelo.getDestino()+"</td>"+
+                                        "<td>"+vuelo.getFecha()+"</td>"+
+                                        "<td>"+vuelo.getPrecio()+"</td>"+
                                         "<td align=\"center\"><input required type=\"radio\" name=\"eleccionIda\" value=\""+vuelo.getId_vuelo()+"\"></td></tr>");
                                         
                                 }
@@ -36,12 +36,12 @@
                         }
                          %> 
             </div>
-            <div>
+            <div class="form-group">
                 <%
                         ArrayList<Vuelo> listaVueloVuelta = (ArrayList) session.getAttribute("vuelos-Vuelta");
                         out.println("<h2>Billetes de ida</h2>");
                         if (listaVueloVuelta.size() > 0) {
-                            out.println("<table><tr>");
+                            out.println("<table width=\"200\" cellpadding=\"10\"><tr>");
                             out.println("<tr><th>Origen</th>"+
                                         "<th>Destino</th>"+
                                         "<th>Fecha</th>"+
@@ -50,10 +50,10 @@
                             
                             for(Vuelo vuelo : listaVueloVuelta){
                                 if(vuelo != null){
-                                     out.println("<tr><td>Fecha: "+vuelo.getOrigen()+"</td>"+
-                                        "<td>Origen: "+vuelo.getDestino()+"</td>"+
-                                        "<td>Destino: "+vuelo.getFecha()+"</td>"+
-                                        "<td>Precio: "+vuelo.getPrecio()+"</td>"+
+                                     out.println("<tr><td>"+vuelo.getOrigen()+"</td>"+
+                                        "<td>"+vuelo.getDestino()+"</td>"+
+                                        "<td>"+vuelo.getFecha()+"</td>"+
+                                        "<td>"+vuelo.getPrecio()+"</td>"+
                                         "<td align=\"center\"><input required type=\"radio\" name=\"eleccionVuelta\" value=\""+vuelo.getId_vuelo()+"\"></td></tr>");
                                         
                                 }

@@ -112,10 +112,10 @@ public class ControladorAdminVuelo extends HttpServlet {
     public Vuelo crearVuelo(HttpServletRequest req) {
 //mirate el constructor de vuelo
         Vuelo a;
-        a = new Vuelo(req.getParameter(Constantes.ID_AVION), req.getParameter("origen"),
+        a = new Vuelo(req.getParameter("origen"),
                 req.getParameter("destino"), LocalDate.now(),
                 Integer.parseInt(req.getParameter(Constantes.ID_AVION)),
-                Float.valueOf(req.getParameter("precio")));
+                true);
         return a;
 
     }

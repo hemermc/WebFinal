@@ -138,4 +138,8 @@
     margin-left: 20px;
     margin-bottom: 20px;
 } 
+td
+{
+    padding:0 15px 0 15px;
+}
 
