@@ -15,7 +15,7 @@
          <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
-            <div  class="grid-block" style="background-image: url('https://memoriasdeunviajesinretorno.files.wordpress.com/2014/12/airplane-taking-off-road-sky.jpg?w=1200')">
+            <div  id="myCarousel" class="grid-block" style="background-image: url('https://memoriasdeunviajesinretorno.files.wordpress.com/2014/12/airplane-taking-off-road-sky.jpg?w=1200')">
 
                     <form class="formulario-inicio" action="ControladorBusquedaVuelos" method="post">                    
                         <div>        
@@ -80,7 +80,7 @@
 		Haz tu reserva y no te arrepentiras de un viaje fantastico, adem&aacutes accederas a nuestras ofertas de forma 
                 autom&aacutetica.</small></h3> </br>			
 		</p>
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div width="400" height="259" id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -89,17 +89,17 @@
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="https://miviaje.com/wp-content/uploads/2018/07/caribe.jpg" alt="Los Angeles" style="width:100%;">
+    <div width="400" height="259" class="carousel-inner">
+      <div width="400" height="259" class="item active">
+          <img width="400" height="300" src="https://miviaje.com/wp-content/uploads/2018/07/caribe.jpg" alt="Los Angeles" style="width:100%;">
       </div>
 
-      <div class="item">
-        <img src="https://www.pullmantur.es/media/pull/responsive/images/pagina-producto/581x354px/mini-caribe.jpg" alt="Chicago" style="width:100%;">
+      <div width="400" height="259" class="item">
+        <img width="400" height="259" src="https://www.pullmantur.es/media/pull/responsive/images/pagina-producto/581x354px/mini-caribe.jpg" alt="Chicago" style="width:100%;">
       </div>
     
-      <div class="item">
-        <img src="https://fundacioncompartir.org/sites/default/files/styles/slick_600x320/public/una-iniciativa-que-fortalece-al-caribe-colombiano.jpg?itok=YpNp2G1Q" alt="New york" style="width:100%;">
+      <div width="400" height="259" class="item">
+        <img width="400" height="259" src="https://fundacioncompartir.org/sites/default/files/styles/slick_600x320/public/una-iniciativa-que-fortalece-al-caribe-colombiano.jpg?itok=YpNp2G1Q" alt="New york" style="width:100%;">
       </div>
     </div>
 

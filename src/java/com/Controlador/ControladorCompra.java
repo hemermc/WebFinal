@@ -5,6 +5,7 @@
  */
 package com.Controlador;
 
+import com.common.EnvioMail;
 import com.crud.CRUDAdministrador;
 import com.crud.CRUDAeropuerto;
 import com.crud.CRUDCliente;
@@ -49,22 +50,6 @@ public class ControladorCompra extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       /* GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
-        Connection conexion = gestionDB.establecerConexion();
-        
-        HttpSession session = request.getSession();
-        String ida =  request.getParameter("eleccionIda");
-        String vuelta = request.getParameter("eleccionVuelta");
-        session.setAttribute("respuesta", ida+ ",-" +vuelta);
-        CRUDCliente crudCliente = new CRUDCliente(conexion);
-        CRUDCompra crudCompra = new CRUDCompra(conexion);
-        Cliente cli =(Cliente) session.getAttribute("usuario");
-        Compra comp = new Compra(cli.getDni(),1,ida,200);
-        crudCompra.insertar(comp);
-        ArrayList<Compra> list = new ArrayList();
-        list = crudCompra.obtenerComprasUsuario(cli.getDni());
-        session.setAttribute("listaCompras", list);
-        response.sendRedirect("./VistaUsuarioDetalles.jsp");*/
        GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
         Connection conexion = gestionDB.establecerConexion();
         HttpSession session = request.getSession();
@@ -144,6 +129,10 @@ public class ControladorCompra extends HttpServlet {
         compra.insertar(compraUsuarioVuelta);
         ArrayList<Compra> list = new ArrayList();
         list = compra.obtenerComprasUsuario(cli.getDni());
+        EnvioMail envio = new EnvioMail();
+        String mensaje = crearMensajeCompra(compraUsuarioIda, compraUsuarioVuelta);
+        envio.envioSingleCorreo(cli.getEmail(), cli.getNombre(),mensaje);
+        
         session.setAttribute("listaCompras", list);
 
 
@@ -253,5 +242,15 @@ public class ControladorCompra extends HttpServlet {
     protected void pulsarBotonEleccion(HttpServletRequest request, HttpServletResponse response, String id_vuelo) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("vueloElegido", id_vuelo);
+    }
+    private String crearMensajeCompra (Compra c1, Compra c2){
+        String mensaje = "A continuación le hacemos un breve resumen de la compra\n\n";
+         mensaje = mensaje +"Identificación del vuelo: " +c1.getId_vuelo()+"\n"+
+                "Numero de asiento: "+c1.getAsiento()+"\n Importe Billete Ida: "+ c1.getImporte()+"\n\n";
+         mensaje = mensaje +"Identificación del vuelo: " +c2.getId_vuelo()+"\n"+
+                "Numero de asiento: "+c2.getAsiento()+"\n Importe Billete Vuelta: "+ c2.getImporte()+"\n\n";
+         mensaje = mensaje + "---------------------------------------------------------------\n\n";
+         mensaje = mensaje + "Importe Total: "+ (c1.getImporte()+c2.getImporte())+ "\n\n";
+        return mensaje;
     }
 }
