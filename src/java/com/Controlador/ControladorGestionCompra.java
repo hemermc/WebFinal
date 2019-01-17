@@ -48,7 +48,7 @@ public class ControladorGestionCompra extends HttpServlet {
         CRUDCompra cRUDCompra = new CRUDCompra(conexion);
         String idVuelo = req.getParameter(Constantes.ID_VUELO);
         Vuelo vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
-        if (!isNull(req, "idVuelo")) {
+        if (!isNull(req, "id_vuelo")) {
             switch (action) {
                 case "action1": {
                     if (vuelo != null) {
@@ -81,7 +81,7 @@ public class ControladorGestionCompra extends HttpServlet {
             res.sendRedirect(res.encodeRedirectURL("VistaGestionCompra.jsp"));
 
         } else {
-            notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
+            notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido visualizar.");
         }
     }
 
