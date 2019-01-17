@@ -67,7 +67,7 @@ public class ControladorAdminVuelo extends HttpServlet {
                         }
                     } else {
 //Muestro error
-                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
+                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido insertar.");
                     }
                     break;
                 }
@@ -78,7 +78,7 @@ public class ControladorAdminVuelo extends HttpServlet {
                         vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
                         if (vuelo != null) {
                             Vuelo vueloAfter = crearVuelo(req);
-                            //Borramos la aeropuerto
+                            //Borramos la vuelo
                             cRUDVuelo.actualizar(vueloAfter);
                         } else {
                             //Muestro error
@@ -100,7 +100,7 @@ public class ControladorAdminVuelo extends HttpServlet {
                         }
                     } else {
                         //Muestro error
-                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
+                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido filtrar.");
                     }
                 }
                 break;
