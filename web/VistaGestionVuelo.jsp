@@ -103,26 +103,36 @@
                                 if (vueloFilter != null) {
                                     out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">");
                                     out.println("<tr><td><label>" + vueloFilter.getId_vuelo() + "</label></td>");
+                                    out.println("<input type =\"hidden\" name=\"id_vuelo\" value=\"" + vueloFilter.getId_vuelo()+ "\">");
                                     out.println("<td><input type =\"text\" name=\"origen\" value=\"" + vueloFilter.getOrigen() + "\"></td>");
                                     out.println("<td><input type =\"text\" name=\"destino\" value=\"" + vueloFilter.getDestino() + "\"></td>");
                                     out.println("<td><input type =\"date\" name=\"fecha\" value=\"" + vueloFilter.getFecha() + "\"></td>");
                                     out.println("<td><input type =\"text\" name=\"id_avion\" value=\"" + vueloFilter.getId_avion() + "\"></td>");
                                     out.println("<td><input type =\"number\" name=\"precio\" value=\"" + vueloFilter.getPrecio() + "\"></td>");
-                                    out.println("<td><input type =\"number\" name=\"precio\" value=\"" + vueloFilter.getOferta() + "\"></td>");
+
+                                    out.println("<td><input type =\"number\" name=\"oferta\" value=\"" + vueloFilter.getOferta() + "\"></td>");
+
                                     out.println("<td><button type=\"submit\" name=\"action\" value=\"update\" class=\"btn btn-warning btn-xs\">Update</button><td></tr></form>");
 
                                 } else {
                                     if (listaVuelos != null) {
                                         for (Vuelo r : listaVuelos) {
                                             if (r != null) {
-                                                out.println("<form action=\"ControladorAdminAeropuerto\" method=\"post\">");
+
+                                                out.println("<form action=\"ControladorAdminVuelo\" method=\"post\">");
+
                                                 out.println("<tr><td><label>" + r.getId_vuelo() + "</label></td>");
+
+                                                out.println("<input type =\"hidden\" name=\"id_vuelo\" value=\"" + r.getId_vuelo()+ "\">");
+
                                                 out.println("<td><input type =\"text\" name=\"origen\" value=\"" + r.getOrigen() + "\"></td>");
                                                 out.println("<td><input type =\"text\" name=\"destino\" value=\"" + r.getDestino() + "\"></td>");
                                                 out.println("<td><input type =\"date\" name=\"fecha\" value=\"" + r.getFecha() + "\"></td>");
                                                 out.println("<td><input type =\"text\" name=\"id_avion\" value=\"" + r.getId_avion() + "\"></td>");
                                                 out.println("<td><input type =\"number\" name=\"precio\" value=\"" + r.getPrecio() + "\"></td>");
-                                                out.println("<td><input type =\"number\" name=\"precio\" value=\"" + r.getOferta() + "\"></td>");
+
+                                                out.println("<td><input type =\"number\" name=\"oferta\" value=\"" + r.getOferta() + "\"></td>");
+
                                                 out.println("<td><button type=\"submit\" name=\"action\" value=\"update\" class=\"btn btn-warning btn-xs\">Update</button><td></tr></form>");
                                             }
                                         }
