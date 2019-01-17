@@ -54,50 +54,53 @@ public class ControladorAdminVuelo extends HttpServlet {
         if (!"".equals(idVuelo)) {
             switch (action) {
                 case "add": {
-                    if (cRUDVuelo.obtenerEspecifico(idVuelo) != null) {
-                        //Muestro error
-                        notificarMensaje(req, res, "ERROR: El vuelo introducido ya existe en la base de datos.");
+                    if (!(isNull(req, "id_vuelo") || isNull(req, "origen") || isNull(req, "destino")
+                            || isNull(req, "fecha") || isNull(req, "id_avion") || isNull(req, "precio"))) {
+
+                        if (cRUDVuelo.obtenerEspecifico(idVuelo) != null) {
+                            //Muestro error
+                            notificarMensaje(req, res, "ERROR: El vuelo introducido ya existe en la base de datos.");
+                        } else {
+                            //Creo el objeto vuelo
+                            vuelo = crearVuelo(req);
+                            cRUDVuelo.insertar(vuelo);
+                        }
                     } else {
-                        //Creo el objeto vuelo
-                        vuelo = crearVuelo(req);
-                        cRUDVuelo.insertar(vuelo);
-                    }
-                    break;
-                }
-
-                case "remove": {
-                    vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
-                    if (vuelo != null) {
-
-                        //Muestro error
-                        notificarMensaje(req, res, "ERROR: El vuelo no se puede borrar, ya ha sido comprado algun billete.");
-
-                    } else {
-                        //Muestro error
-                        notificarMensaje(req, res, "ERROR: El vuelo introducido no existe en la base de datos.");
+//Muestro error
+                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
                     }
                     break;
                 }
 
                 case "update": {
-                    vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
-                    if (vuelo != null) {
-                        Vuelo vueloAfter = crearVuelo(req);
-                        //Borramos la aeropuerto
-                        cRUDVuelo.actualizar(vueloAfter);
+                    if (!(isNull(req, "id_vuelo") || isNull(req, "origen") || isNull(req, "destino")
+                            || isNull(req, "fecha") || isNull(req, "id_avion") || isNull(req, "precio"))) {
+                        vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
+                        if (vuelo != null) {
+                            Vuelo vueloAfter = crearVuelo(req);
+                            //Borramos la aeropuerto
+                            cRUDVuelo.actualizar(vueloAfter);
+                        } else {
+                            //Muestro error
+                            notificarMensaje(req, res, "ERROR: El avion no se ha podido actualizar.");
+                        }
                     } else {
-                        //Muestro error
-                        notificarMensaje(req, res, "ERROR: El avion no se ha podido actualizar.");
+//Muestro error
+                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
                     }
                 }
-
                 break;
 
                 case "filter": {
-                    vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
-                    if (vuelo != null) {
-                        req.setAttribute("filter", vuelo);
-                        req.getRequestDispatcher("/VistaGestionVuelo.jsp").forward(req, res);
+                    if (!(isNull(req, "id_vuelo"))) {
+                        vuelo = cRUDVuelo.obtenerEspecifico(idVuelo);
+                        if (vuelo != null) {
+                            req.setAttribute("filter", vuelo);
+                            req.getRequestDispatcher("/VistaGestionVuelo.jsp").forward(req, res);
+                        }
+                    } else {
+                        //Muestro error
+                        notificarMensaje(req, res, "ERROR: Datos erroneos, no se ha podido actualizar.");
                     }
                 }
                 break;
