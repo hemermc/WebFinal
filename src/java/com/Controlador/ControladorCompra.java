@@ -59,8 +59,8 @@ public class ControladorCompra extends HttpServlet {
 
       
         CRUDCliente crudCliente = new CRUDCliente(conexion);
-  
-        Cliente cli =(Cliente) session.getAttribute("usuario");
+        if(session.getAttribute("usuario") != null){
+           Cliente cli =(Cliente) session.getAttribute("usuario");
 
         //CALCULAR PRECIO
         CRUDVuelo vuelo = new CRUDVuelo(conexion);
@@ -138,7 +138,11 @@ public class ControladorCompra extends HttpServlet {
 
         response.sendRedirect("./VistaUsuarioDetalles.jsp");  //Redireccion a la vista donde se muestran los valores de sesion compraRealizada y datosCliente
         //COMPROBAR NOMBRE DE LA VISTA, NO SE COMO SE LA VAS A LLAMAR Y HE PUESTO ESO DE EJEMPlo
-
+ 
+        }else{
+            response.sendRedirect("./VistaInicioSesion.jsp");  //Redireccion a la vista donde se muestran los valores de sesion compraRealizada y datosCliente
+        }
+        
           
     }
 

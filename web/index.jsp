@@ -132,9 +132,10 @@
                         <img height="259" border="0" width="500" alt="" src="https://img.elcomercio.pe/files/ec_article_multimedia_gallery/uploads/2018/09/13/5b9aa200b8f03.jpeg" /> 
                         <img height="259" border="0" width="500" alt="" src="https://www.viajarsolo.com/thumbnails/gallery_image_full/components/kcfinder/kcfinder-3.12/upload/images/0B2HVR1Fb-AMqbHNqNGdFQklLSEU.jpg?itok=xsos5xMC" /> 
                     </marquee> <br />
+                    
+                <%@ include file="/ComponenteFooter.jsp" %>
                 </div>
             <div class="col-md-1"></div>       
-        <%@ include file="/ComponenteFooter.jsp" %>
         </div>         
     </body>
 </html>
