@@ -43,7 +43,6 @@ public class CRUDCompra implements ICRUDGeneral<Compra> {
             ps.setInt(2, compra.getAsiento());
             ps.setString(3, compra.getId_vuelo());
             ps.setFloat(4, compra.getImporte());
-        ;
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CRUDCompra.class.getName()).log(Level.SEVERE, "Error al insertar un registro de la tabla COMPRAS", ex);

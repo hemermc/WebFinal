@@ -57,7 +57,7 @@ public class ControladorContacto extends HttpServlet {
         String correo = request.getParameter("correo");
         String mensaje = request.getParameter("mensaje");
         EnvioMail envio = new EnvioMail();
-        envio.envioSingleCorreo(correo, nombre,mensaje);
+        envio.envioSingleCorreo(correo, nombre,mensaje + "\n------------------------------------\n En breve será llamado para resolver sus dudas\n\n");
         response.sendRedirect("./index.jsp");
     }
     

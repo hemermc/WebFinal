@@ -15,6 +15,7 @@
          <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
+
                 <div>
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
@@ -23,6 +24,7 @@
                           <li data-target="#myCarousel" data-slide-to="1"></li>
                           <li data-target="#myCarousel" data-slide-to="2"></li>
                         </ol>
+
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
@@ -116,6 +118,7 @@
 		</p>
                 
                     </div>
+
 
                     <marquee direction="LEFT">  <br />      
                         <img height="259" border="0" width="500" alt="" src="https://miviaje.com/wp-content/uploads/2018/07/caribe.jpg" />  

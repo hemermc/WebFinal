@@ -32,8 +32,8 @@ public class EnvioMail {
          MimeMessage message = new MimeMessage(session);
          message.setFrom(new InternetAddress(from));
          message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-         message.setSubject("Notificación - Para" + nombre);
-         message.setText(mensaje+ "\n--------------\n En breve será llamado para resolver sus dudas");
+         message.setSubject("Notificación - Para: " + nombre);
+         message.setText(mensaje);
 
          // Send message
          Transport transport = session.getTransport("smtp");

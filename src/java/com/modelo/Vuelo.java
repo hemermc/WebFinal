@@ -24,12 +24,10 @@ public class Vuelo {
     private Boolean oferta;
     
     public Vuelo(String origen, String destino, LocalDate fecha,int id_avion, Boolean oferta) {
-        this.id_vuelo = id_vuelo;
         this.fecha = fecha;
         this.origen = origen;
         this.destino = destino;
         this.id_avion = id_avion;
-        this.precio = precio;
         this.oferta = oferta;
     }
 
@@ -42,4 +40,14 @@ public class Vuelo {
         this.precio = precio;
         this.oferta = oferta;
     }
+
+    public Vuelo(String origen, String destino, LocalDate fecha, int id_avion, float precio, Boolean oferta) {
+        this.origen = origen;
+        this.destino = destino;
+        this.fecha = fecha;
+        this.id_avion = id_avion;
+        this.precio = precio;
+        this.oferta = oferta;
+    }
+    
 }

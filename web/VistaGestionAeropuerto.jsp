@@ -13,10 +13,16 @@
         CRUDAeropuerto cRUDAeropuerto = new CRUDAeropuerto(conexion);
         ArrayList<Aeropuerto> listAeropuerto = cRUDAeropuerto.obtenerTodos();
         session.setAttribute(Constantes.SESSION_AEROPUERTOS, listAeropuerto);
+        
+        String mensaje = (String) request.getAttribute("mensaje");
+        if (mensaje == null) {
+            mensaje = "";
+        }
     %>
 
     <body id="body">
         <div class ="contenedor">
+        <h6 style="color:#FF0000">${mensaje}</h6>
             <div class ="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-12">
@@ -56,7 +62,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <%                                ArrayList<Aeropuerto> listaAeropuerto = (ArrayList) session.getAttribute(Constantes.SESSION_AEROPUERTOS);
+                            <%                     
+                                ArrayList<Aeropuerto> listaAeropuerto = (ArrayList) session.getAttribute(Constantes.SESSION_AEROPUERTOS);
                                 Aeropuerto aeroFilter = (Aeropuerto) request.getAttribute("filter");
 
                                 out.println("<h2>Lista de los aeropuertos en la base de datos</h2>");
