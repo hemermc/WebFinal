@@ -1123,6 +1123,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+   opacity: .5;
 }
 .img-rounded {
   border-radius: 6px;
@@ -6243,6 +6244,7 @@ button.close {
   position: relative;
   width: 100%;
   overflow: hidden;
+  opacity: 0.8;
 }
 .carousel-inner > .item {
   position: relative;

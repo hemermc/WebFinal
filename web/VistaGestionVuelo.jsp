@@ -24,6 +24,7 @@
             mensaje = "";
         }
     %>
+
     <body id="body">
         <div class ="contenedor">
             <h6 style="color:#FF0000">${mensaje}</h6>
@@ -46,6 +47,7 @@
                                         out.println("<option value=\"" + aerop.getLugar() + "\">" + aerop.getNombre() + " - " + aerop.getLugar() + "</option>");
                                     }
                                 %>                                                
+
                             </select>
                         </div>
                         <div class="form-group">
@@ -57,6 +59,7 @@
                                         out.println("<option value=\"" + aerop.getLugar() + "\">" + aerop.getNombre() + " - " + aerop.getLugar() + " </option>");
                                     }
                                 %>
+
                             </select>
                         </div>
                             <label>Avion: </label>
@@ -75,8 +78,10 @@
                                 <button type="submit" name="action" value="filter" class="btn btn-primary btn-lg"> Filtrar</button>
                             </div>
                         </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
             </div>
             <div>
                 <table class="table table-striped">
@@ -88,6 +93,7 @@
                             <th>Fecha</th>
                             <th>id_avion</th>
                             <th>Precio</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -105,12 +111,14 @@
                                     out.println("<td><input type =\"date\" name=\"fecha\" value=\"" + vueloFilter.getFecha() + "\"></td>");
                                     out.println("<td><input type =\"text\" name=\"id_avion\" value=\"" + vueloFilter.getId_avion() + "\"></td>");
                                     out.println("<td><input type =\"number\" name=\"precio\" value=\"" + vueloFilter.getPrecio() + "\"></td>");
+
                                     out.println("<td><button type=\"submit\" name=\"action\" value=\"update\" class=\"btn btn-warning btn-xs\">Update</button><td></tr></form>");
 
                                 } else {
                                     if (listaVuelos != null) {
                                         for (Vuelo r : listaVuelos) {
                                             if (r != null) {
+
                                                 out.println("<form action=\"ControladorAdminVuelo\" method=\"post\">");
                                                 out.println("<tr><td><label>" + r.getId_vuelo() + "</label></td>");
                                                 out.println("<td><input type =\"hidden\" name=\"id_vuelo\" value=\"" + r.getId_vuelo() + "\"></td>");
@@ -119,6 +127,7 @@
                                                 out.println("<td><input type =\"date\" name=\"fecha\" value=\"" + r.getFecha() + "\"></td>");
                                                 out.println("<td><input type =\"text\" name=\"id_avion\" value=\"" + r.getId_avion() + "\"></td>");
                                                 out.println("<td><input type =\"number\" name=\"precio\" value=\"" + r.getPrecio() + "\"></td>");
+
                                                 out.println("<td><button type=\"submit\" name=\"action\" value=\"update\" class=\"btn btn-warning btn-xs\">Update</button><td></tr></form>");
                                             }
                                         }

@@ -3,8 +3,10 @@
     Created on : 12-ene-2019, 12:06:39
     Author     : amunguia
 --%>
+<html>
 
 <%@ include file="/ComponenteHeader.jsp" %>
+<body>
     <div class="container-fluid">
     <!--<Contenedor centrado>-->
     <div class="container">
@@ -56,6 +58,7 @@
                 </div>
              </form>
          </div>
-    </div><!--</Contenedor centrado>-->
-    <%@ include file="/ComponenteFooter.jsp" %>
+        <%@ include file="/ComponenteFooter.jsp" %>
+        </div><!--</Contenedor centrado>-->
+    </body>
 </html>

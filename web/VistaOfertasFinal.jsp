@@ -3,8 +3,12 @@
     Created on : 16-ene-2019, 19:29:00
     Author     : Robert
 --%>
-<link rel="stylesheet" href="./css/estilos.css"/>
+<html>
+
 <%@ include file="/ComponenteHeader.jsp" %>
+<body>
+
+    <!--<Contenedor centrado>-->
     <div class="contenedor">
        
         <form class="formulario" action="ControladorOfertas" method="post">
@@ -47,12 +51,8 @@
                     </div>
             </div>
         </form>
-    </div>
-    <script>
-        function myFunction() {
-            confirm("Pulsa boton para confirmar");
-        
-        }
-    </script>
-    <%@ include file="/ComponenteFooter.jsp" %>
+       
+         <%@ include file="/ComponenteFooter.jsp" %>
+        </div><!--</Contenedor centrado>-->
+    </body>
 </html>

@@ -26,29 +26,61 @@
                                 "</table>");
                     %>
        
-        <h2>Compras realizadas: </h2>        
-                <% ArrayList<Compra> comprasUsuario = new ArrayList<>();
-                       comprasUsuario = (ArrayList)session.getAttribute("listaCompras");
-                        String noValue3 = " No Data";
-                       if(comprasUsuario == null || comprasUsuario.size() == 0){
-                              out.println("<h3>El usuario no tiene compras!</h3>");   
-                              
-                       }else{                        
-                            for (Compra e : comprasUsuario){
-                                if(e!= null){
-                            
-                              out.println("<div><table class=\"table table-bordered\"><tr><th> Id Compra   : </th><td>"+e.getId_compra()         +" </td></tr>"+
-                                "<tr><th> D.N.I: </th><td>"+e.getDni()            +" </td></tr>"+     
-                                "<tr><th> Asiento: </th><td>"+e.getAsiento()      +" </td></tr>"+     
-                                "<tr><th> ID vuelo: </th><td>"+e.getId_vuelo()    +" </td></tr>"+           
-                            
-                                "</table></div>");
+        <h2>Compras realizadas: </h2> 
+         <%
+            GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
+            Connection conexion = gestionDB.establecerConexion();
+            CRUDVuelo cRUDVuelo = new CRUDVuelo(conexion);
+            ArrayList<Compra> listCompra = (ArrayList)session.getAttribute("listaCompras");
+            //Comprobamos si la session es nueva.
+          %>
+        <table class="table table-striped">
+            <form action="ControladorGestionCompra" method="post">
+                    <thead>
+                        <tr>
+                            <th>id_compra</th>
+                            <th>Asiento</th>
+                            <th>Vuelo</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Fecha</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+        
+                <%
+                  try {
+
+                if (listCompra != null) {
+                    for (Compra c : listCompra) {
+                        if (c != null) {
+                            Vuelo v = cRUDVuelo.obtenerEspecifico(c.getId_vuelo());
+                            if (v != null) {
+                                ;
+                                out.println("<tr><td><label>" + c.getId_compra() + "</label></td>");
+                                out.println("<td><label>" + c.getAsiento()+ "</label></td>");
+                                out.println("<td><label>" + c.getId_vuelo() + "</label></td>");
+                                out.println("<td><label>" + v.getOrigen() + "</label></td>");
+                                out.println("<td><label>" + v.getDestino()+ "</label></td>");
+                                out.println("<td><label>" + v.getFecha() + "</label></td>");
+                                out.println("<td><label>" + v.getPrecio() + "</label></td>");
+                                out.println("</tr>");
+
                             }
-                            }
-                            
+                        }
                     }
-                       
-                        %>       
+                } else {
+                    out.println("<h3>No hay ninguna compra registrada</h3>");
+                }
+            } catch (ExceptionManager e) {
+                out.println("<h3>" + e + " </h3>");
+            }
+                        %>  
+                                            </tr>
+                </tbody>
+            </table>
          <%@ include file="/ComponenteFooter.jsp" %>
     </div>
     

@@ -1,5 +1,6 @@
 <html>
     <%@ include file="/ComponenteHeader.jsp" %>
+
     <%            GestionBBDDLocalhost gestionDB = GestionBBDDLocalhost.getInstance();
         Connection conexion = gestionDB.establecerConexion();
         CRUDCompra cRUDCompra = new CRUDCompra(conexion);
@@ -44,7 +45,6 @@
 
                         <%                            try {
                                 ArrayList<Compra> listCompra2 = (ArrayList) session.getAttribute(Constantes.SESSION_COMPRAS);
-
                                 out.println("<h2>Lista de ventas</h2>");
                                 if (listCompra2 != null) {
                                     for (Compra c : listCompra2) {
